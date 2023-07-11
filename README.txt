@@ -1,4 +1,4 @@
-A simple python script to create a polar area chart and fill it on with some values and labels.
+A simple Python script to create a polar area chart and fill it on with some values and labels.
 
 How to run
 Executive Assessment Script
@@ -11,4 +11,4 @@ pip install numpy plotly pandas openpyxl
 5. And then inside the container cd to /tmp location and run the below command
 python main.py
 6. Above command will generate an Assesment.html file inside the same directory, all of the diagrams will be in a single html page labelled, scroll down.
-You just need to duplicate the tabs and keep the format for each of people you want to perform an assessment of. Label each tab with the person's name as the script uses this as a label for the diagrams.
+You only need to duplicate the tabs and keep the format for each of the people you want to perform an assessment of. Label each tab with the person's name as the script uses this as a label for the diagrams.
