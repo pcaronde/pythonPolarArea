@@ -1,7 +1,7 @@
-A simple Python script to create a polar area chart and fill it on with some values and labels.
+# A simple Python script to create a polar area chart and fill it on with some values and labels.
 
-#How to run
-##Executive Assessment Script
+## How to run
+### Executive Assessment Script
 1. Create a folder and place the attached script & Users.xlsx file in the folder (download this Google Sheet here and rename users.xlsx) - Or change line 48 if you don't want to rename.
 2. Open a terminal and cd to that folder
 3. And then run the below command
