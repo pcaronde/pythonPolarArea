@@ -1,4 +1,4 @@
-# Create a polar area charts 
+# Create polar area charts 
 A Python script to create and fill in PolarCharts with some values and labels
 
 ## How to run
