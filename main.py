@@ -3,6 +3,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 import sys
 import ast
+import openpyxl
 import pandas as pd
 
 # Add user data
@@ -46,10 +47,12 @@ def get_fig_data(r_values, user_name):
 
     return fig
 
-
+# Define input excel. Change this is using a different named file
 xls = pd.ExcelFile("Users.xlsx")
 html_content = ''
 
+
+# Read data from excel sheet
 for sheet_name in xls.sheet_names:
     df = pd.read_excel(xls, sheet_name=sheet_name)
     r_values = df['Ratings'].tolist()
@@ -57,6 +60,7 @@ for sheet_name in xls.sheet_names:
     fig = get_fig_data(r_values, user_name)
     chart_html = pio.to_html(fig, full_html=False)
     html_content += chart_html
+
 
 with open("Assessments.html", "w") as f:
     f.write(html_content)
