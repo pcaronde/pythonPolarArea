@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+     <title>CSV Form</title>
+  </head>
+<body>
+
+<!-- 'Shared Vision', 'Strategy', 'Business Alignment', 'Subordinates for Success', 'Cross-functional teams',
+              'Clarity on priorities', 'Acceptance Criteria', 'Enable Focus', 'Engagement', 'Feedback',
+              'Enable Autonomy', 'Change and ambiguity', 'Desired Culture', 'Work autonomously', 'Stakeholders',
+              'Customer Focus', 'Attrition', 'Teams', 'Develop People' -->
+
+ <form id="entryForm">
+   <label for="strategy">Strategy:</label>
+     <input type="number" id="strategy" name="strategy" required><br><br>
+   <label for="alignment">Business Alignment::</label>
+     <input type="number" id="alignment" name="alignment" required><br><br>
+   <label for="success">Subordinates for Success</label>
+     <input type="number" id="success" name="success" required><br><br>
+   <label for="ccteams">Cross-functional Teams: </label>
+     <input type="number" id="ccteams" name="ccteams" required><br><br>
+   <label for="priorities">Clarity on priorities: </label>
+     <input type="number" id="priorities" name="priorities" required><br><br>
+   <label for="acceptance">Acceptance Criteria:</label>
+     <input type="number" id="acceptance" name="acceptance" required><br><br>
+   <label for="focus">Enable Focus:</label>
+     <input type="number" id="focus" name="focus" required><br><br>
+   <label for="engagement">Strategy:</label>
+     <input type="number" id="engagement" name="engagement" required><br><br>
+   <label for="feedback">Business Alignment::</label>
+     <input type="number" id="feedback" name="feedback" required><br><br>
+   <label for="autonomy">Enable Autonomy</label>
+     <input type="number" id="autonomy" name="autonomy" required><br><br>
+   <label for="ambiguity">   Ambiguity: </label>
+     <input type="number" id="ambiguity" name="ambiguity" required><br><br>
+   <label for="culture">Clarity on priorities: </label>
+     <input type="number" id="culture" name="culture" required><br><br>
+   <label for="autonomous">Work Autonomously</label>
+     <input type="number" id="autonomous" name="autonomous" required><br><br>
+   <label for="stakeholders">Stakeholder Management:</label>
+     <input type="number" id="stakeholders" name="stakeholders" required><br><br>
+   <label for="customer">Customer Focus: </label>
+     <input type="number" id="customer" name="customer" required><br><br>
+   <label for="attrition">Clarity on priorities: </label>
+     <input type="number" id="attrition" name="attrition" required><br><br>
+   <label for="teams">Work Autonomously</label>
+     <input type="number" id="teams" name="teams" required><br><br>
+   <label for="people">Enable People:</label>
+     <input type="number" id="people" name="people" required><br><br>
+ <button type="submit">Save to CSV file</button>
+
+ </form>
+ <script>
+
+document.getElementById("csvForm").addEventListener("submit", function(event) {
+
+ event.preventDefault();
+
+ const name = document.getElementById("name").value;
+
+ const email = document.getElementById("email").value;
+
+ const phone = document.getElementById("phone").value;
+
+ const csvContent = `Name,Email,Phone\n${name},${email},${phone}`;
+
+ const encodedUri = encodeURI(`data:text/csv;charset=utf-8,${csvContent}`);
+
+ const link = document.createElement("a");
+ link.setAttribute("href", encodedUri);
+ link.setAttribute("download", "form_data.csv");
+ document.body.appendChild(link);
+
+ link.click();
+ });
+ </script>
+</body>
+
+</html>
