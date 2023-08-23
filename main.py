@@ -34,11 +34,8 @@ def get_fig_data(r_values, user_name):
     fig = go.Figure(go.Barpolar(
         r=r_values,
         theta=categories,
-        marker_line_color="white",
-#        marker_color=["#E4FF87", "#E4FF87", "#E4FF87", "#E4FF87", '#709BFF', '#709BFF', '#709BFF', '#709BFF', '#709BFF',
-#                      '#6E1786', '#6E1786', '#6E1786', '#6E1786', '#6E1786', '#FFAA70', '#FFAA70', '#FFAA70', '#FFAA70',
-#                      '#FFAA70', ],
         marker_color=result,
+        marker_line_color="white",
         marker_line_width=1,
         opacity=0.8
     ))
