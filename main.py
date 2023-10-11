@@ -26,7 +26,7 @@ def read_file(file_path: object) -> object:
 # Usage
 file_path = 'properties'
 result = read_file(file_path)
-print(result)
+# print(result)
 
 
 def get_fig_data(r_values, user_name):
@@ -61,7 +61,6 @@ def get_fig_data(r_values, user_name):
     )
 
     return fig
-
 
 # Define input excel. Change this is using a different named file
 xls = pd.ExcelFile("Users.xlsx")
