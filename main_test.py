@@ -1,7 +1,7 @@
 import plotly.graph_objects as go
 import unittest
 
-from main import get_fig_data
+from PolarAreaChart import get_fig_data
 
 
 class TestGetFigData(unittest.TestCase):
