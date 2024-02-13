@@ -1,7 +1,7 @@
 import numpy
 import plotly.graph_objects as go
 import plotly.io as pio
-import sys
+import os
 import ast
 import openpyxl
 import pandas as pd
@@ -12,14 +12,31 @@ categories = ['Shared Vision', 'Strategy', 'Business Alignment', 'Subordinates f
               'Enable Autonomy', 'Change and ambiguity', 'Desired Culture', 'Work autonomously', 'Stakeholders',
               'Customer Focus', 'Attrition', 'Teams', 'Develop People']
 
+
+# Read in colour array from properties file
+def read_file(file_path: object) -> object:
+    data = []
+    with open(file_path, 'r') as file:
+        for line in file:
+            key, value = line.strip().split('=')
+            data.append((value))
+    return data
+
+
+# Usage
+file_path = 'properties'
+result = read_file(file_path)
+
+
+# print(result)
+
+
 def get_fig_data(r_values, user_name):
     # Create a polar area chart using four coolors, static categories, and variable values
     fig = go.Figure(go.Barpolar(
         r=r_values,
         theta=categories,
-        marker_color=["#E4FF87", "#E4FF87", "#E4FF87", "#E4FF87", '#709BFF', '#709BFF', '#709BFF', '#709BFF', '#709BFF',
-                      '#6E1786', '#6E1786', '#6E1786', '#6E1786', '#6E1786', '#FFAA70', '#FFAA70', '#FFAA70', '#FFAA70',
-                      '#FFAA70', ],
+        marker_color=result,
         marker_line_color="white",
         marker_line_width=1,
         opacity=0.8
@@ -47,10 +64,19 @@ def get_fig_data(r_values, user_name):
 
     return fig
 
+
+input_file = './Users.xlsx'
+#check_file = os.path.isfile(input_file)
+
+if os.path.isfile(input_file):
+    print(f'The input file {input_file} exists')
+else:
+    print(f'The input file {input_file} does not exist. Exiting.')
+    exit()
+
 # Define input excel. Change this is using a different named file
 xls = pd.ExcelFile("Users.xlsx")
 html_content = ''
-
 
 # Read data from excel sheet
 for sheet_name in xls.sheet_names:
@@ -61,7 +87,15 @@ for sheet_name in xls.sheet_names:
     chart_html = pio.to_html(fig, full_html=False)
     html_content += chart_html
 
+output_file = './Assessments.html'
+#check_file = os.path.isfile(input_file)
+
+if os.path.isfile("Assessments.html"):
+    print(f'The output file {output_file} already exists. Overwriting.')
+    print(f'A backup copy will be saved to .bak')
+    os.rename(output_file, output_file+'.bak')
+else:
+    print(f'The output file {output_file} does not exist. Executing ...')
 
 with open("Assessments.html", "w") as f:
     f.write(html_content)
-
