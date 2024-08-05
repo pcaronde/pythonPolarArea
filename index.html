@@ -1,9 +1,19 @@
+<!--
+This code creates a simple HTML form with input fields for all the specified categories. Each input field is set to accept only integer values (type="number"). When the user clicks the "Save" button, the following actions occur:
+
+1. The form submission is prevented to handle the data with JavaScript.
+2. All input values are collected.
+3. A CSV string is created with the field names as the header and the input values as the data.
+4. The CSV content is encoded and a download is triggered, saving the data to a file named "form_data.csv".
+
+To use this, you can save the code as an HTML file and open it in a web browser. Users can then input integer values for each field and click the "Save" button to download the CSV file with their input data.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Form</title>
+    <title>Assesment Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,8 +37,12 @@
     </style>
 </head>
 <body>
-    <h1>Input Form</h1>
+    <h1>Assesment Form</h1>
     <form id="inputForm">
+        <div class="field">
+            <label for="assesseeName">Name:</label>
+            <input type="text" id="assesseeName" 		                        name="assesseeName" value=""          	                          input.width="150">
+        </div>
         <div class="field">
             <label for="sharedVision">Shared Vision:</label>
             <input type="number" id="sharedVision" name="sharedVision" min="0" max="5" value="0">
@@ -131,14 +145,3 @@
     </script>
 </body>
 </html>
-
-<!--
-This code creates a simple HTML form with input fields for all the specified categories. Each input field is set to accept only integer values (type="number"). When the user clicks the "Save" button, the following actions occur:
-
-1. The form submission is prevented to handle the data with JavaScript.
-2. All input values are collected.
-3. A CSV string is created with the field names as the header and the input values as the data.
-4. The CSV content is encoded and a download is triggered, saving the data to a file named "form_data.csv".
-
-To use this, you can save the code as an HTML file and open it in a web browser. Users can then input integer values for each field and click the "Save" button to download the CSV file with their input data.
--->
