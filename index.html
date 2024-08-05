@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .field {
+            margin-bottom: 10px;
+        }
+        label {
+            display: inline-block;
+            width: 200px;
+        }
+        input {
+            width: 50px;
+        }
+        button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Input Form</h1>
+    <form id="inputForm">
+        <div class="field">
+            <label for="sharedVision">Shared Vision:</label>
+            <input type="number" id="sharedVision" name="sharedVision" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="strategy">Strategy:</label>
+            <input type="number" id="strategy" name="strategy" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="businessAlignment">Business Alignment:</label>
+            <input type="number" id="businessAlignment" name="businessAlignment" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="subordinatesForSuccess">Subordinates for Success:</label>
+            <input type="number" id="subordinatesForSuccess" name="subordinatesForSuccess" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="crossFunctionalTeams">Cross-functional teams:</label>
+            <input type="number" id="crossFunctionalTeams" name="crossFunctionalTeams" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="clarityInPriorities">Clarity in priorities:</label>
+            <input type="number" id="clarityInPriorities" name="clarityInPriorities" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="acceptanceCriteria">Acceptance Criteria:</label>
+            <input type="number" id="acceptanceCriteria" name="acceptanceCriteria" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="enablingFocus">Enabling Focus:</label>
+            <input type="number" id="enablingFocus" name="enablingFocus" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="engagement">Engagement:</label>
+            <input type="number" id="engagement" name="engagement" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="feedback">Feedback:</label>
+            <input type="number" id="feedback" name="feedback" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="enablingAutonomy">Enabling Autonomy:</label>
+            <input type="number" id="enablingAutonomy" name="enablingAutonomy" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="changeAndAmbiguity">Change and ambiguity:</label>
+            <input type="number" id="changeAndAmbiguity" name="changeAndAmbiguity" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="desiredCulture">Desired Culture:</label>
+            <input type="number" id="desiredCulture" name="desiredCulture" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="workAutonomously">Work autonomously:</label>
+            <input type="number" id="workAutonomously" name="workAutonomously" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="stakeholders">Stakeholders:</label>
+            <input type="number" id="stakeholders" name="stakeholders" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="customerFocus">Customer Focus:</label>
+            <input type="number" id="customerFocus" name="customerFocus" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="teamAttrition">Team Attrition:</label>
+            <input type="number" id="teamAttrition" name="teamAttrition" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="teams">Teams:</label>
+            <input type="number" id="teams" name="teams" min="0" max="5" value="0">
+        </div>
+        <div class="field">
+            <label for="developingPeople">Developing People:</label>
+            <input type="number" id="developingPeople" name="developingPeople" min="0" max="5" value="0">
+        </div>
+        <button type="button" onclick="saveToCSV()">Save</button>
+    </form>
+
+    <script>
+        function saveToCSV() {
+            const form = document.getElementById('inputForm');
+            const formData = new FormData(form);
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Field,Value\n";
+
+            for (let [key, value] of formData.entries()) {
+                csvContent += `${key},${value}\n`;
+            }
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "form_data.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
+
+<!--
+This code creates a simple HTML form with input fields for all the specified categories. Each input field is set to accept only integer values (type="number"). When the user clicks the "Save" button, the following actions occur:
+
+1. The form submission is prevented to handle the data with JavaScript.
+2. All input values are collected.
+3. A CSV string is created with the field names as the header and the input values as the data.
+4. The CSV content is encoded and a download is triggered, saving the data to a file named "form_data.csv".
+
+To use this, you can save the code as an HTML file and open it in a web browser. Users can then input integer values for each field and click the "Save" button to download the CSV file with their input data.
+-->

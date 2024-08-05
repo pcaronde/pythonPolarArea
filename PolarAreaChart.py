@@ -2,6 +2,7 @@ import numpy
 import plotly.graph_objects as go
 import plotly.io as pio
 import os
+import csv
 import ast
 import openpyxl
 import pandas as pd
@@ -14,6 +15,31 @@ categories = ['Shared Vision', 'Strategy', 'Business Alignment', 'Subordinates f
 
 
 # Read in colour array from properties file
+# def read_file(file_path: object) -> object:
+#     data = []
+#     with open(file_path, 'r') as file:
+#         for line in file:
+#             key, value = line.strip().split('=')
+#             data.append((value))
+#     return data
+
+# Read the CSV file
+def read_csv_file(file_path: object) -> object:
+    data = []
+    try:
+        with open(file_path, 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for line in csvfile:
+                data.append(value)
+        print(f"Successfully read {len(data)} rows from {file_path}")
+        return data
+    except FileNotFoundError:
+        print(f"Error: File '{file_path}' not found.")
+        return None
+    except csv.Error as e:
+        print(f"Error reading CSV file: {e}")
+        return None
+      
 def read_file(file_path: object) -> object:
     data = []
     with open(file_path, 'r') as file:
@@ -23,10 +49,11 @@ def read_file(file_path: object) -> object:
     return data
 
 
+
 # Usage
 file_path = 'properties'
-result = read_file(file_path)
-
+#result = read_file(file_path)
+result = read_csv_file(file_path)
 
 # print(result)
 
@@ -65,7 +92,8 @@ def get_fig_data(r_values, user_name):
     return fig
 
 
-input_file = './Users.xlsx'
+input_file = './Users.csv' #     filename = 'Users.csv'
+#input_file = './Users.xlsx'
 #check_file = os.path.isfile(input_file)
 
 if os.path.isfile(input_file):
@@ -87,7 +115,13 @@ for sheet_name in xls.sheet_names:
     chart_html = pio.to_html(fig, full_html=False)
     html_content += chart_html
 
-output_file = './Assessments.html'
+
+output_file = './Assessments-csv.html'
+#check_file = os.path.isfile(input_file)
+
+if os.path.isfile("Assessments-csv.html"):
+
+#output_file = './Assessments.html'
 #check_file = os.path.isfile(input_file)
 
 if os.path.isfile("Assessments.html"):
@@ -97,5 +131,9 @@ if os.path.isfile("Assessments.html"):
 else:
     print(f'The output file {output_file} does not exist. Executing ...')
 
-with open("Assessments.html", "w") as f:
+
+with open("Assessments-csv.html", "w") as f:
+
+#with open("Assessments.html", "w") as f:
+
     f.write(html_content)
