@@ -40,6 +40,13 @@ def read_csv_file(file_path: object) -> object:
         print(f"Error reading CSV file: {e}")
         return None
 
+def read_file(file_path: object) -> object:
+    data = []
+    with open(file_path, 'r') as file:
+        for line in file:
+            key, value = line.strip().split('=')
+            data.append((value))
+    return data
 
 # Usage
 file_path = 'properties'
@@ -109,6 +116,11 @@ output_file = './Assessments-csv.html'
 #check_file = os.path.isfile(input_file)
 
 if os.path.isfile("Assessments-csv.html"):
+
+#output_file = './Assessments.html'
+#check_file = os.path.isfile(input_file)
+
+if os.path.isfile("Assessments.html"):
     print(f'The output file {output_file} already exists. Overwriting.')
     print(f'A backup copy will be saved to .bak')
     os.rename(output_file, output_file+'.bak')
@@ -116,4 +128,7 @@ else:
     print(f'The output file {output_file} does not exist. Executing ...')
 
 with open("Assessments-csv.html", "w") as f:
+
+#with open("Assessments.html", "w") as f:
+
     f.write(html_content)
