@@ -16,8 +16,7 @@ def read_csv_file(filename):
     try:
         with open(filename, 'r', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
-            for row in reader:
-                data.append(row)
+            data.extend(iter(reader))
         print(f"Successfully read {len(data)} rows from {filename}")
         return data
     except FileNotFoundError:
@@ -30,13 +29,11 @@ def read_csv_file(filename):
 
 # Main function to demonstrate usage
 def main():
-    filename = 'Users.csv'
-    user_data = read_csv_file(filename)
-
-    if user_data:
+    filename = 'form_data.csv'
+    if user_data := read_csv_file(filename):
         # Print the first few rows as an example
         print("\nFirst 3 rows of data:")
-        for row in user_data[:3]:
+        for row in user_data[:19]:
             print(row)
 
 

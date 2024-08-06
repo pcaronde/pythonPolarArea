@@ -30,6 +30,7 @@ def read_csv_file(file_path: object) -> object:
         with open(file_path, 'r') as csvfile:
             reader = csv.DictReader(csvfile)
             for line in csvfile:
+                key, value = line.strip().split('=')
                 data.append(value)
         print(f"Successfully read {len(data)} rows from {file_path}")
         return data
@@ -39,7 +40,7 @@ def read_csv_file(file_path: object) -> object:
     except csv.Error as e:
         print(f"Error reading CSV file: {e}")
         return None
-      
+
 def read_file(file_path: object) -> object:
     data = []
     with open(file_path, 'r') as file:
@@ -48,12 +49,14 @@ def read_file(file_path: object) -> object:
             data.append((value))
     return data
 
-
-
 # Usage
 file_path = 'properties'
 #result = read_file(file_path)
-result = read_csv_file(file_path)
+try:
+    result = read_csv_file(file_path)
+except:
+    pass
+
 
 # print(result)
 
@@ -91,10 +94,9 @@ def get_fig_data(r_values, user_name):
 
     return fig
 
-
-input_file = './Users.csv' #     filename = 'Users.csv'
+input_file = './form_data.csv' #     filename = 'Users.csv'
 #input_file = './Users.xlsx'
-#check_file = os.path.isfile(input_file)
+check_file = os.path.isfile(input_file)
 
 if os.path.isfile(input_file):
     print(f'The input file {input_file} exists')
@@ -102,22 +104,39 @@ else:
     print(f'The input file {input_file} does not exist. Exiting.')
     exit()
 
-# Define input excel. Change this is using a different named file
-xls = pd.ExcelFile("Users.xlsx")
+## Define input excel. Change this is using a different named file
+#xls = pd.ExcelFile("Users.xlsx")
 html_content = ''
 
 # Read data from excel sheet
-for sheet_name in xls.sheet_names:
-    df = pd.read_excel(xls, sheet_name=sheet_name)
-    r_values = df['Ratings'].tolist()
-    user_name = sheet_name
-    fig = get_fig_data(r_values, user_name)
-    chart_html = pio.to_html(fig, full_html=False)
-    html_content += chart_html
+#for sheet_name in xls.sheet_names:
+#    df = pd.read_excel(xls, sheet_name=sheet_name)
+#    r_values = df['Ratings'].tolist()
+#    user_name = sheet_name
+#    fig = get_fig_data(r_values, user_name)
+#    chart_html = pio.to_html(fig, full_html=False)
+#    html_content += chart_html
 
+# Read the CSV file
+def read_csv_file(filename):
+    data = []
+    try:
+        with open(filename, 'r', newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            data.extend(iter(reader))
+        print(f"Successfully read {len(data)} rows from {filename}")
+        chart_html = pio.to_html(fig, full_html=False)
+        html_content += chart_html
+        return data
+    except FileNotFoundError:
+        print(f"Error: File '{filename}' not found.")
+        return None
+    except csv.Error as e:
+        print(f"Error reading CSV file: {e}")
+        return None
 
 output_file = './Assessments-csv.html'
-#check_file = os.path.isfile(input_file)
+check_file = os.path.isfile(input_file)
 
 if os.path.isfile("Assessments-csv.html"):
 
@@ -130,7 +149,6 @@ if os.path.isfile("Assessments.html"):
     os.rename(output_file, output_file+'.bak')
 else:
     print(f'The output file {output_file} does not exist. Executing ...')
-
 
 with open("Assessments-csv.html", "w") as f:
 
