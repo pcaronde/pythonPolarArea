@@ -134,13 +134,17 @@ To use this, you can save the code as an HTML file and open it in a web browser.
                 csvContent += `${key},${value}\n`;
             }
 
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "form_data.csv");
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            try {
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "form_data.csv");
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } catch (e) {
+                print.toString(e)
+            }
         }
     </script>
 </body>
