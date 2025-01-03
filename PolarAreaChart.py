@@ -13,15 +13,17 @@ categories = ['Shared Vision', 'Strategy', 'Business Alignment', 'Subordinates f
               'Enable Autonomy', 'Change and ambiguity', 'Desired Culture', 'Work autonomously', 'Stakeholders',
               'Customer Focus', 'Attrition', 'Teams', 'Develop People']
 
+html_content = ''
+
 
 # Read in colour array from properties file
-# def read_file(file_path: object) -> object:
-#     data = []
-#     with open(file_path, 'r') as file:
-#         for line in file:
-#             key, value = line.strip().split('=')
-#             data.append((value))
-#     return data
+def read_file(file_path: object) -> object:
+     data = []
+     with open(file_path, 'r') as file:
+         for line in file:
+             key, value = line.strip().split('=')
+             data.append((value))
+     return data
 
 # Read the CSV file
 def read_csv_file(file_path: object) -> object:
@@ -30,6 +32,7 @@ def read_csv_file(file_path: object) -> object:
         with open(file_path, 'r') as csvfile:
             reader = csv.DictReader(csvfile)
             for line in csvfile:
+                key, value = line.strip().split('=')
                 data.append(value)
         print(f"Successfully read {len(data)} rows from {file_path}")
         return data
@@ -39,7 +42,8 @@ def read_csv_file(file_path: object) -> object:
     except csv.Error as e:
         print(f"Error reading CSV file: {e}")
         return None
-      
+
+
 def read_file(file_path: object) -> object:
     data = []
     with open(file_path, 'r') as file:
@@ -49,11 +53,13 @@ def read_file(file_path: object) -> object:
     return data
 
 
-
 # Usage
 file_path = 'properties'
-#result = read_file(file_path)
-result = read_csv_file(file_path)
+result = read_file(file_path)
+
+result_csv = read_csv_file(file_path)
+
+
 
 # print(result)
 
@@ -88,13 +94,12 @@ def get_fig_data(r_values, user_name):
             angularaxis=dict(showticklabels=True, ticks='')
         )
     )
-
     return fig
 
 
-input_file = './Users.csv' #     filename = 'Users.csv'
-#input_file = './Users.xlsx'
-#check_file = os.path.isfile(input_file)
+#input_file = './form_data.csv'  #     filename = 'Users.csv'
+input_file = './Users.xlsx'
+check_file = os.path.isfile(input_file)
 
 if os.path.isfile(input_file):
     print(f'The input file {input_file} exists')
@@ -102,9 +107,9 @@ else:
     print(f'The input file {input_file} does not exist. Exiting.')
     exit()
 
-# Define input excel. Change this is using a different named file
+
+## Define input excel. Change this is using a different named file
 xls = pd.ExcelFile("Users.xlsx")
-html_content = ''
 
 # Read data from excel sheet
 for sheet_name in xls.sheet_names:
@@ -115,25 +120,33 @@ for sheet_name in xls.sheet_names:
     chart_html = pio.to_html(fig, full_html=False)
     html_content += chart_html
 
+# Read the CSV file
+#def read_csv_file(filename, html_content=None):
+#    data = []
+#    try:
+#        with open(filename, 'r', newline='') as csvfile:
+#            reader = csv.DictReader(csvfile)
+#            data.extend(iter(reader))
+#        print(f"Successfully read {len(data)} rows from {filename}")
+#        chart_html = pio.to_html(fig, full_html=False)
+#        html_content += chart_html
+#        return data
+#    except FileNotFoundError:
+#        print(f"Error: File '{filename}' not found.")
+#        return None
+#    except csv.Error as e:
+#        print(f"Error reading CSV file: {e}")
+#        return None
 
-output_file = './Assessments-csv.html'
-#check_file = os.path.isfile(input_file)
+output_file = "./Assessments-csv.html"
+check_file = os.path.isfile(input_file)
 
 if os.path.isfile("Assessments-csv.html"):
-
-#output_file = './Assessments.html'
-#check_file = os.path.isfile(input_file)
-
-if os.path.isfile("Assessments.html"):
     print(f'The output file {output_file} already exists. Overwriting.')
     print(f'A backup copy will be saved to .bak')
-    os.rename(output_file, output_file+'.bak')
+    os.rename(output_file, output_file + '.bak')
 else:
     print(f'The output file {output_file} does not exist. Executing ...')
 
-
 with open("Assessments-csv.html", "w") as f:
-
-#with open("Assessments.html", "w") as f:
-
     f.write(html_content)
