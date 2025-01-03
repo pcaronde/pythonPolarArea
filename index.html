@@ -57,7 +57,7 @@
         </div>
         <div class="field">
             <input type="number" id="clarityInPriorities" name="clarityInPriorities" min="0" max="5" value="0">
-            <label for="clarityInPriorities"><b>Clarity in priorities:</b> Able to set priorities.</label>
+            <label for="clarityInPriorities"><b>Clarity of Priorities:</b> Able to set priorities and execute by importance.</label>
         </div>
         <div class="field">
             <input type="number" id="acceptanceCriteria" name="acceptanceCriteria" min="0" max="5" value="0">
@@ -133,7 +133,7 @@
 
             let csvContent = "data:text/csv;charset=utf-8,";
             <!--csvContent += "Field,Value\n";-->
-            csvContent += "Categories,Results\n";
+            csvContent += "Categories,Ratings\n";
 
             for (let [key, value] of formData.entries()) {
                 csvContent += `${key},${value}\n`;
