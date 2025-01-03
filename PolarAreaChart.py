@@ -52,8 +52,8 @@ def read_file(file_path: object) -> object:
 
 # Usage
 file_path = 'properties'
-#result = read_file(file_path)
-result = read_csv_file(file_path)
+result = read_file(file_path)
+#result = read_csv_file(file_path)
 
 # print(result)
 
@@ -82,7 +82,7 @@ def get_fig_data(r_values, user_name):
     # Set chart look and feel
     fig.update_layout(
         template=None,
-        title=f'{user_name} Assessments',
+        title=f'{user_name} Assessment',
         polar=dict(
             radialaxis=dict(range=[0, 5], showticklabels=True, ticks=''),
             angularaxis=dict(showticklabels=True, ticks='')
@@ -92,9 +92,9 @@ def get_fig_data(r_values, user_name):
     return fig
 
 
-input_file = './Users.csv' #     filename = 'Users.csv'
-#input_file = './Users.xlsx'
-#check_file = os.path.isfile(input_file)
+#input_file = './Users.csv' #     filename = 'Users.csv'
+input_file = './Users.xlsx'
+check_file = os.path.isfile(input_file)
 
 if os.path.isfile(input_file):
     print(f'The input file {input_file} exists')
@@ -116,10 +116,10 @@ for sheet_name in xls.sheet_names:
     html_content += chart_html
 
 
-output_file = './Assessments-csv.html'
+output_file = './Assessments.html'
 #check_file = os.path.isfile(input_file)
 
-if os.path.isfile("Assessments-csv.html"):
+#if os.path.isfile("Assessments.html"):
 
 #output_file = './Assessments.html'
 #check_file = os.path.isfile(input_file)
@@ -132,8 +132,8 @@ else:
     print(f'The output file {output_file} does not exist. Executing ...')
 
 
-with open("Assessments-csv.html", "w") as f:
+#with open("Assessments-csv.html", "w") as f:
 
-#with open("Assessments.html", "w") as f:
+with open("Assessments.html", "w") as f:
 
     f.write(html_content)
