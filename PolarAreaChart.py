@@ -15,6 +15,31 @@ categories = ['Shared Vision', 'Strategy', 'Business Alignment', 'Subordinates f
 
 
 # Read in colour array from properties file
+def read_file(file_path: object) -> object:
+     data = []
+     with open(file_path, 'r') as file:
+         for line in file:
+             key, value = line.strip().split('=')
+             data.append((value))
+     return data
+
+# Read the CSV file
+# def read_csv_file(file_path: object) -> object:
+#     data = []
+#     try:
+#         with open(file_path, 'r') as csvfile:
+#             reader = csv.DictReader(csvfile)
+#             for line in csvfile:
+#                 data.append(value)
+#         print(f"Successfully read {len(data)} rows from {file_path}")
+#         return data
+#     except FileNotFoundError:
+#         print(f"Error: File '{file_path}' not found.")
+#         return None
+#     except csv.Error as e:
+#         print(f"Error reading CSV file: {e}")
+#         return None
+      
 # def read_file(file_path: object) -> object:
 #     data = []
 #     with open(file_path, 'r') as file:
@@ -22,31 +47,6 @@ categories = ['Shared Vision', 'Strategy', 'Business Alignment', 'Subordinates f
 #             key, value = line.strip().split('=')
 #             data.append((value))
 #     return data
-
-# Read the CSV file
-def read_csv_file(file_path: object) -> object:
-    data = []
-    try:
-        with open(file_path, 'r') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for line in csvfile:
-                data.append(value)
-        print(f"Successfully read {len(data)} rows from {file_path}")
-        return data
-    except FileNotFoundError:
-        print(f"Error: File '{file_path}' not found.")
-        return None
-    except csv.Error as e:
-        print(f"Error reading CSV file: {e}")
-        return None
-      
-def read_file(file_path: object) -> object:
-    data = []
-    with open(file_path, 'r') as file:
-        for line in file:
-            key, value = line.strip().split('=')
-            data.append((value))
-    return data
 
 
 
