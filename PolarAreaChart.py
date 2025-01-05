@@ -30,7 +30,6 @@ def read_file(file_path: object) -> object:
      return data
 
 # Usage
-#[TODO] add properties file
 file_path = 'properties'
 result = read_file(file_path)
 
