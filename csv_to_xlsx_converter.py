@@ -44,7 +44,7 @@ def convert_csv_to_xlsx(
 def main():
     """Handle command line arguments and execute conversion."""
     if len(sys.argv) < 2:
-        print("Usage: script.py [-o output.xlsx] <csv_file1> [csv_file2 ...]")
+        print("Usage: csv_to_xlsx_converter.py [-o output.xlsx] <csv_file1> [csv_file2 ...]")
         sys.exit(1)
 
     args = sys.argv[1:]
