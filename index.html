@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .field {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        label {
+            display: inline-block;
+            width: 800px;
+            margin-bottom: 0;
+            line-height: 1.4;
+        }
+        input {
+            width: 25px;
+            height: 25px;
+            flex-shrink: 0;
+            text-align: center;
+        }
+        button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Assessment Form</h1>
+    <h2>Date:</h2>
+
+    <form id="inputForm">
+        <h3>Strategy and Business</h3>
+        <div class="field">
+            <input type="number" id="sharedVision" name="sharedVision" min="0" max="5" value="0">
+            <label for="sharedVision"><strong>Shared Vision:</strong> Consistently demonstrates alignment between personal objectives and company vision through actions and decisions.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="strategy" name="strategy" min="0" max="5" value="0">
+            <label for="strategy"><strong>Strategy:</strong> Effectively develops strategic plans and translates them into actionable tactical steps.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="businessAlignment" name="businessAlignment" min="0" max="5" value="0">
+            <label for="businessAlignment"><strong>Business Alignment:</strong> Demonstrates clear connection between daily activities and broader company objectives.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="subordinatesForSuccess" name="subordinatesForSuccess" min="0" max="5" value="0">
+            <label for="subordinatesForSuccess"><strong>Prepare subordinates for success:</strong> Actively mentors and provides resources to direct reports to help them achieve their goals.</label>
+        </div>
+
+        <h3>Focus and Engagement</h3>
+        <div class="field">
+            <input type="number" id="crossFunctionalTeams" name="crossFunctionalTeams" min="0" max="5" value="0">
+            <label for="crossFunctionalTeams"><strong>Enables cross-functional work:</strong> Successfully builds relationships and collaborates across teams and departments to achieve shared objectives.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="clarityInPriorities" name="clarityInPriorities" min="0" max="5" value="0">
+            <label for="clarityInPriorities"><strong>Clarity of Priorities:</strong> Systematically evaluates and ranks tasks based on importance, ensuring efficient execution.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="acceptanceCriteria" name="acceptanceCriteria" min="0" max="5" value="0">
+            <label for="acceptanceCriteria"><strong>Acceptance Criteria:</strong> Clearly defines and communicates quality standards for deliverables.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="enablingFocus" name="enablingFocus" min="0" max="5" value="0">
+            <label for="enablingFocus"><strong>Enabling Focus:</strong> Creates clear roadmaps with specific milestones and maintains team focus on key objectives.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="engagement" name="engagement" min="0" max="5" value="0">
+            <label for="engagement"><strong>Engagement:</strong> Shows consistent enthusiasm and dedication in approaching work responsibilities.</label>
+        </div>
+
+        <h3>Autonomy and Change</h3>
+        <div class="field">
+            <input type="number" id="feedback" name="feedback" min="0" max="5" value="0">
+            <label for="feedback"><strong>Feedback:</strong> Delivers constructive feedback effectively while remaining open and responsive to receiving input from others.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="enablingAutonomy" name="enablingAutonomy" min="0" max="5" value="0">
+            <label for="enablingAutonomy"><strong>Enabling Autonomy:</strong> Empowers team members to make decisions and innovate within appropriate boundaries.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="changeAndAmbiguity" name="changeAndAmbiguity" min="0" max="5" value="0">
+            <label for="changeAndAmbiguity"><strong>Change and ambiguity:</strong> Maintains effectiveness and adapts quickly when facing uncertain or changing circumstances.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="desiredCulture" name="desiredCulture" min="0" max="5" value="0">
+            <label for="desiredCulture"><strong>Desired Culture:</strong> Demonstrates and promotes behaviours that align with and strengthen company values.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="workAutonomously" name="workAutonomously" min="0" max="5" value="0">
+            <label for="workAutonomously"><strong>Works autonomously:</strong> Effectively self-manages time and priorities to deliver optimal results independently.</label>
+        </div>
+
+        <h3>Stakeholders and Customers</h3>
+        <div class="field">
+            <input type="number" id="stakeholders" name="stakeholders" min="0" max="5" value="0">
+            <label for="stakeholders"><strong>Stakeholders:</strong> Identifies key stakeholders and demonstrates a deep understanding of their explicit and implicit needs.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="customerFocus" name="customerFocus" min="0" max="5" value="0">
+            <label for="customerFocus"><strong>Customer Focus:</strong> Consistently prioritises customer needs and satisfaction in decision-making and actions.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="teamAttrition" name="teamAttrition" min="0" max="5" value="0">
+            <label for="teamAttrition"><strong>Team Attrition:</strong> Maintains strong working relationships that inspire loyalty and respect from team members.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="teams" name="teams" min="0" max="5" value="0">
+            <label for="teams"><strong>Teams:</strong> Consistently prioritises team success over individual recognition or achievement.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="developingPeople" name="developingPeople" min="0" max="5" value="0">
+            <label for="developingPeople"><strong>Developing People:</strong> Actively identifies and creates opportunities for team members' professional growth and skill development.</label>
+        </div>
+
+        <button type="button" onclick="save()">Save</button>
+    </form>
+
+    <script>
+        function save() {
+            const form = document.getElementById('inputForm');
+            const formData = new FormData(form);
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Categories,Ratings\n";
+
+            for (let [key, value] of formData.entries()) {
+                csvContent += `${key},${value}\n`;
+            }
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "user.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
