@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Form</title>
+    <title>Assessment Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,10 +16,10 @@
         }
         label {
             display: inline-block;
-            width: 200px;
+            width: 500px;
         }
         input {
-            width: 50px;
+            width: 25px;
         }
         button {
             margin-top: 20px;
@@ -27,94 +27,113 @@
     </style>
 </head>
 <body>
-    <h1>Input Form</h1>
+    <h1>Assessment Form</h1>
+            <h3>Strategy and Business</h3>
     <form id="inputForm">
         <div class="field">
-            <label for="sharedVision">Shared Vision:</label>
             <input type="number" id="sharedVision" name="sharedVision" min="0" max="5" value="0">
+            <label for="sharedVision"><b>Shared Vision:</b> Personal vision aligns with the company's.</label>
         </div>
+
         <div class="field">
-            <label for="strategy">Strategy:</label>
             <input type="number" id="strategy" name="strategy" min="0" max="5" value="0">
+            <label for="strategy"><b>Strategy:</b> Is able to think strategically and apply ideas tactically.</label>
         </div>
         <div class="field">
-            <label for="businessAlignment">Business Alignment:</label>
             <input type="number" id="businessAlignment" name="businessAlignment" min="0" max="5" value="0">
+            <label for="businessAlignment"><b>Business Alignment:</b> Daily work aligns with company direction.</label>
         </div>
+
         <div class="field">
-            <label for="subordinatesForSuccess">Subordinates for Success:</label>
             <input type="number" id="subordinatesForSuccess" name="subordinatesForSuccess" min="0" max="5" value="0">
+            <label for="subordinatesForSuccess"><b>Prepare subordinates for success:</b> Works to enable direct reports.</label>
+
         </div>
+        <h3>Focus and Engagement</h3>
         <div class="field">
-            <label for="crossFunctionalTeams">Cross-functional teams:</label>
             <input type="number" id="crossFunctionalTeams" name="crossFunctionalTeams" min="0" max="5" value="0">
+            <label for="crossFunctionalTeams"><b>Enables cross-functional work:</b> Works across team boundaries.</label>
+
         </div>
         <div class="field">
-            <label for="clarityInPriorities">Clarity in priorities:</label>
             <input type="number" id="clarityInPriorities" name="clarityInPriorities" min="0" max="5" value="0">
+            <label for="clarityInPriorities"><b>Clarity of Priorities:</b> Able to set priorities and execute by importance.</label>
         </div>
         <div class="field">
-            <label for="acceptanceCriteria">Acceptance Criteria:</label>
             <input type="number" id="acceptanceCriteria" name="acceptanceCriteria" min="0" max="5" value="0">
+            <label for="acceptanceCriteria"><b>Acceptance Criteria:</b> Understands definition of done and is able to define what good looks like.</label>
         </div>
         <div class="field">
-            <label for="enablingFocus">Enabling Focus:</label>
             <input type="number" id="enablingFocus" name="enablingFocus" min="0" max="5" value="0">
+            <label for="enablingFocus"><b>Enabling Focus:</b> Having a clear path ahead with goals and milestones, creating and maintaining focus in the workplace.</label>
+
         </div>
         <div class="field">
-            <label for="engagement">Engagement:</label>
             <input type="number" id="engagement" name="engagement" min="0" max="5" value="0">
+            <label for="engagement"><b>Engagement:</b> Personal engagement in work.</label>
         </div>
+        <h3>Autonomy and Change</h3>
         <div class="field">
-            <label for="feedback">Feedback:</label>
             <input type="number" id="feedback" name="feedback" min="0" max="5" value="0">
+            <label for="feedback"><b>Feedback:</b> Able to give and take useful feedback.</label>
+
         </div>
         <div class="field">
-            <label for="enablingAutonomy">Enabling Autonomy:</label>
             <input type="number" id="enablingAutonomy" name="enablingAutonomy" min="0" max="5" value="0">
+            <label for="enablingAutonomy"><b>Enabling Autonomy:</b> Allows direct reports to experiment within limits.</label>
+
         </div>
         <div class="field">
-            <label for="changeAndAmbiguity">Change and ambiguity:</label>
             <input type="number" id="changeAndAmbiguity" name="changeAndAmbiguity" min="0" max="5" value="0">
+            <label for="changeAndAmbiguity"><b>Change and ambiguity:</b> Can deal with ambiguity and lack of specificity in directions and change.</label>
+
         </div>
         <div class="field">
-            <label for="desiredCulture">Desired Culture:</label>
             <input type="number" id="desiredCulture" name="desiredCulture" min="0" max="5" value="0">
+            <label for="desiredCulture"><b>Desired Culture:</b> Cultural priorities are well-aligned with teh culture of the company.</label>
+
         </div>
         <div class="field">
-            <label for="workAutonomously">Work autonomously:</label>
             <input type="number" id="workAutonomously" name="workAutonomously" min="0" max="5" value="0">
+            <label for="workAutonomously"><b>Work autonomously:</b> Can work alone, finding the best use for one's own time to achieve best results.</label>
         </div>
+        <h3>Stakeholders and Customers</h3>
         <div class="field">
-            <label for="stakeholders">Stakeholders:</label>
             <input type="number" id="stakeholders" name="stakeholders" min="0" max="5" value="0">
+            <label for="stakeholders"><b>Stakeholders:</b> Understand who the stakeholders are, what value thy bring and what the need (not only what they say the need).</label>
+
         </div>
         <div class="field">
-            <label for="customerFocus">Customer Focus:</label>
             <input type="number" id="customerFocus" name="customerFocus" min="0" max="5" value="0">
+            <label for="customerFocus"><b>Customer Focus:</b></label>
+
         </div>
         <div class="field">
-            <label for="teamAttrition">Team Attrition:</label>
             <input type="number" id="teamAttrition" name="teamAttrition" min="0" max="5" value="0">
+            <label for="teamAttrition"><b>Team Attrition:</b> Team members respect this person.</label>
+
         </div>
         <div class="field">
-            <label for="teams">Teams:</label>
             <input type="number" id="teams" name="teams" min="0" max="5" value="0">
+            <label for="teams"><b>Teams:</b></label>
+
         </div>
         <div class="field">
-            <label for="developingPeople">Developing People:</label>
-            <input type="number" id="developingPeople" name="developingPeople" min="0" max="5" value="0">
+             <input type="number" id="developingPeople" name="developingPeople" min="0" max="5" value="0">
+            <label for="developingPeople"><b>Developing People:</b></label>
+
         </div>
-        <button type="button" onclick="saveToCSV()">Save</button>
+        <button type="button" onclick="save()">Save</button>
     </form>
 
     <script>
-        function saveToCSV() {
+        function save() {
             const form = document.getElementById('inputForm');
             const formData = new FormData(form);
 
             let csvContent = "data:text/csv;charset=utf-8,";
-            csvContent += "Field,Value\n";
+            <!--csvContent += "Field,Value\n";-->
+            csvContent += "Categories,Ratings\n";
 
             for (let [key, value] of formData.entries()) {
                 csvContent += `${key},${value}\n`;
@@ -123,7 +142,7 @@
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "form_data.csv");
+            link.setAttribute("download", "user.csv");
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
