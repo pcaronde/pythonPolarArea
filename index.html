@@ -7,19 +7,27 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 600px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 20px;
         }
         .field {
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         label {
             display: inline-block;
-            width: 500px;
+            width: 800px;
+            margin-bottom: 0;
+            line-height: 1.4;
         }
         input {
             width: 25px;
+            height: 25px;
+            flex-shrink: 0;
+            text-align: center;
         }
         button {
             margin-top: 20px;
@@ -28,101 +36,93 @@
 </head>
 <body>
     <h1>Assessment Form</h1>
-            <h3>Strategy and Business</h3>
+    <h2>Date:</h2>
+
     <form id="inputForm">
+        <h3>Strategy and Business</h3>
         <div class="field">
             <input type="number" id="sharedVision" name="sharedVision" min="0" max="5" value="0">
-            <label for="sharedVision"><b>Shared Vision:</b> Personal vision aligns with the company's.</label>
+            <label for="sharedVision"><strong>Shared Vision:</strong> Consistently demonstrates alignment between personal objectives and company vision through actions and decisions.</label>
         </div>
-
         <div class="field">
             <input type="number" id="strategy" name="strategy" min="0" max="5" value="0">
-            <label for="strategy"><b>Strategy:</b> Is able to think strategically and apply ideas tactically.</label>
+            <label for="strategy"><strong>Strategy:</strong> Effectively develops strategic plans and translates them into actionable tactical steps.</label>
         </div>
         <div class="field">
             <input type="number" id="businessAlignment" name="businessAlignment" min="0" max="5" value="0">
-            <label for="businessAlignment"><b>Business Alignment:</b> Daily work aligns with company direction.</label>
+            <label for="businessAlignment"><strong>Business Alignment:</strong> Demonstrates clear connection between daily activities and broader company objectives.</label>
         </div>
-
         <div class="field">
             <input type="number" id="subordinatesForSuccess" name="subordinatesForSuccess" min="0" max="5" value="0">
-            <label for="subordinatesForSuccess"><b>Prepare subordinates for success:</b> Works to enable direct reports.</label>
-
+            <label for="subordinatesForSuccess"><strong>Prepare subordinates for success:</strong> Actively mentors and provides resources to direct reports to help them achieve their goals.</label>
         </div>
+
         <h3>Focus and Engagement</h3>
         <div class="field">
             <input type="number" id="crossFunctionalTeams" name="crossFunctionalTeams" min="0" max="5" value="0">
-            <label for="crossFunctionalTeams"><b>Enables cross-functional work:</b> Works across team boundaries.</label>
-
+            <label for="crossFunctionalTeams"><strong>Enables cross-functional work:</strong> Successfully builds relationships and collaborates across teams and departments to achieve shared objectives.</label>
         </div>
         <div class="field">
             <input type="number" id="clarityInPriorities" name="clarityInPriorities" min="0" max="5" value="0">
-            <label for="clarityInPriorities"><b>Clarity of Priorities:</b> Able to set priorities and execute by importance.</label>
+            <label for="clarityInPriorities"><strong>Clarity of Priorities:</strong> Systematically evaluates and ranks tasks based on importance, ensuring efficient execution.</label>
         </div>
         <div class="field">
             <input type="number" id="acceptanceCriteria" name="acceptanceCriteria" min="0" max="5" value="0">
-            <label for="acceptanceCriteria"><b>Acceptance Criteria:</b> Understands definition of done and is able to define what good looks like.</label>
+            <label for="acceptanceCriteria"><strong>Acceptance Criteria:</strong> Clearly defines and communicates quality standards for deliverables.</label>
         </div>
         <div class="field">
             <input type="number" id="enablingFocus" name="enablingFocus" min="0" max="5" value="0">
-            <label for="enablingFocus"><b>Enabling Focus:</b> Having a clear path ahead with goals and milestones, creating and maintaining focus in the workplace.</label>
-
+            <label for="enablingFocus"><strong>Enabling Focus:</strong> Creates clear roadmaps with specific milestones and maintains team focus on key objectives.</label>
         </div>
         <div class="field">
             <input type="number" id="engagement" name="engagement" min="0" max="5" value="0">
-            <label for="engagement"><b>Engagement:</b> Personal engagement in work.</label>
+            <label for="engagement"><strong>Engagement:</strong> Shows consistent enthusiasm and dedication in approaching work responsibilities.</label>
         </div>
+
         <h3>Autonomy and Change</h3>
         <div class="field">
             <input type="number" id="feedback" name="feedback" min="0" max="5" value="0">
-            <label for="feedback"><b>Feedback:</b> Able to give and take useful feedback.</label>
-
+            <label for="feedback"><strong>Feedback:</strong> Delivers constructive feedback effectively while remaining open and responsive to receiving input from others.</label>
         </div>
         <div class="field">
             <input type="number" id="enablingAutonomy" name="enablingAutonomy" min="0" max="5" value="0">
-            <label for="enablingAutonomy"><b>Enabling Autonomy:</b> Allows direct reports to experiment within limits.</label>
-
+            <label for="enablingAutonomy"><strong>Enabling Autonomy:</strong> Empowers team members to make decisions and innovate within appropriate boundaries.</label>
         </div>
         <div class="field">
             <input type="number" id="changeAndAmbiguity" name="changeAndAmbiguity" min="0" max="5" value="0">
-            <label for="changeAndAmbiguity"><b>Change and ambiguity:</b> Can deal with ambiguity and lack of specificity in directions and change.</label>
-
+            <label for="changeAndAmbiguity"><strong>Change and ambiguity:</strong> Maintains effectiveness and adapts quickly when facing uncertain or changing circumstances.</label>
         </div>
         <div class="field">
             <input type="number" id="desiredCulture" name="desiredCulture" min="0" max="5" value="0">
-            <label for="desiredCulture"><b>Desired Culture:</b> Cultural priorities are well-aligned with teh culture of the company.</label>
-
+            <label for="desiredCulture"><strong>Desired Culture:</strong> Demonstrates and promotes behaviours that align with and strengthen company values.</label>
         </div>
         <div class="field">
             <input type="number" id="workAutonomously" name="workAutonomously" min="0" max="5" value="0">
-            <label for="workAutonomously"><b>Work autonomously:</b> Can work alone, finding the best use for one's own time to achieve best results.</label>
+            <label for="workAutonomously"><strong>Works autonomously:</strong> Effectively self-manages time and priorities to deliver optimal results independently.</label>
         </div>
+
         <h3>Stakeholders and Customers</h3>
         <div class="field">
             <input type="number" id="stakeholders" name="stakeholders" min="0" max="5" value="0">
-            <label for="stakeholders"><b>Stakeholders:</b> Understand who the stakeholders are, what value thy bring and what the need (not only what they say the need).</label>
-
+            <label for="stakeholders"><strong>Stakeholders:</strong> Identifies key stakeholders and demonstrates a deep understanding of their explicit and implicit needs.</label>
         </div>
         <div class="field">
             <input type="number" id="customerFocus" name="customerFocus" min="0" max="5" value="0">
-            <label for="customerFocus"><b>Customer Focus:</b></label>
-
+            <label for="customerFocus"><strong>Customer Focus:</strong> Consistently prioritises customer needs and satisfaction in decision-making and actions.</label>
         </div>
         <div class="field">
             <input type="number" id="teamAttrition" name="teamAttrition" min="0" max="5" value="0">
-            <label for="teamAttrition"><b>Team Attrition:</b> Team members respect this person.</label>
-
+            <label for="teamAttrition"><strong>Team Attrition:</strong> Maintains strong working relationships that inspire loyalty and respect from team members.</label>
         </div>
         <div class="field">
             <input type="number" id="teams" name="teams" min="0" max="5" value="0">
-            <label for="teams"><b>Teams:</b></label>
-
+            <label for="teams"><strong>Teams:</strong> Consistently prioritises team success over individual recognition or achievement.</label>
         </div>
         <div class="field">
-             <input type="number" id="developingPeople" name="developingPeople" min="0" max="5" value="0">
-            <label for="developingPeople"><b>Developing People:</b></label>
-
+            <input type="number" id="developingPeople" name="developingPeople" min="0" max="5" value="0">
+            <label for="developingPeople"><strong>Developing People:</strong> Actively identifies and creates opportunities for team members' professional growth and skill development.</label>
         </div>
+
         <button type="button" onclick="save()">Save</button>
     </form>
 
@@ -132,7 +132,6 @@
             const formData = new FormData(form);
 
             let csvContent = "data:text/csv;charset=utf-8,";
-            <!--csvContent += "Field,Value\n";-->
             csvContent += "Categories,Ratings\n";
 
             for (let [key, value] of formData.entries()) {
@@ -150,14 +149,3 @@
     </script>
 </body>
 </html>
-
-<!--
-This code creates a simple HTML form with input fields for all the specified categories. Each input field is set to accept only integer values (type="number"). When the user clicks the "Save" button, the following actions occur:
-
-1. The form submission is prevented to handle the data with JavaScript.
-2. All input values are collected.
-3. A CSV string is created with the field names as the header and the input values as the data.
-4. The CSV content is encoded and a download is triggered, saving the data to a file named "form_data.csv".
-
-To use this, you can save the code as an HTML file and open it in a web browser. Users can then input integer values for each field and click the "Save" button to download the CSV file with their input data.
--->
