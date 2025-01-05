@@ -2,9 +2,6 @@ import numpy
 import plotly.graph_objects as go
 import plotly.io as pio
 import os
-import csv
-import ast
-import openpyxl
 import pandas as pd
 from csv_to_xlsx_converter import convert_csv_to_xlsx
 
@@ -32,34 +29,8 @@ def read_file(file_path: object) -> object:
              data.append((value))
      return data
 
-# Convert the CSV file
-
-# Read the CSV file
-# def read_csv_file(file_path: object) -> object:
-#     data = []
-#     try:
-#         with open(file_path, 'r') as csvfile:
-#             reader = csv.DictReader(csvfile)
-#             for line in csvfile:
-#                 data.append(value)
-#         print(f"Successfully read {len(data)} rows from {file_path}")
-#         return data
-#     except FileNotFoundError:
-#         print(f"Error: File '{file_path}' not found.")
-#         return None
-#     except csv.Error as e:
-#         print(f"Error reading CSV file: {e}")
-#         return None
-      
-# def read_file(file_path: object) -> object:
-#     data = []
-#     with open(file_path, 'r') as file:
-#         for line in file:
-#             key, value = line.strip().split('=')
-#             data.append((value))
-#     return data
-
 # Usage
+#[TODO] add properties file
 file_path = 'properties'
 result = read_file(file_path)
 
@@ -96,8 +67,6 @@ def get_fig_data(r_values, user_name):
 
     return fig
 
-
-#input_file = './Users.csv' #     filename = 'Users.csv'
 input_file = './user.xlsx'
 check_file = os.path.isfile(input_file)
 
@@ -121,24 +90,16 @@ for sheet_name in xls.sheet_names:
     chart_html = pio.to_html(fig, full_html=False)
     html_content += chart_html
 
-
+# Here we output our results to html
 output_file = './Assessments.html'
-#check_file = os.path.isfile(input_file)
 
-#if os.path.isfile("Assessments.html"):
-
-#output_file = './Assessments.html'
-#check_file = os.path.isfile(input_file)
-
+# Make sure we backup any existing output file
 if os.path.isfile("Assessments.html"):
     print(f'The output file {output_file} already exists. Overwriting.')
     print(f'A backup copy will be saved to .bak')
     os.rename(output_file, output_file+'.bak')
 else:
     print(f'The output file {output_file} does not exist. Executing ...')
-
-
-#with open("Assessments-csv.html", "w") as f:
 
 with open("Assessments.html", "w") as f:
 
