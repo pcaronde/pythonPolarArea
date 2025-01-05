@@ -6,6 +6,7 @@ import csv
 import ast
 import openpyxl
 import pandas as pd
+from csv_to_xlsx_converter import convert_csv_to_xlsx
 
 # Add user data
 categories = ['Shared Vision', 'Strategy', 'Business Alignment', 'Subordinates for Success', 'Cross-functional teams',
@@ -13,6 +14,14 @@ categories = ['Shared Vision', 'Strategy', 'Business Alignment', 'Subordinates f
               'Enable Autonomy', 'Change and ambiguity', 'Desired Culture', 'Work autonomously', 'Stakeholders',
               'Customer Focus', 'Attrition', 'Teams', 'Develop People']
 
+
+# Convert the CSV file
+# [TODO] prepare variable for csv filename
+# Convert single file
+convert_csv_to_xlsx('user.csv')
+
+# Convert multiple files
+#convert_csv_to_xlsx(['file1.csv', 'file2.csv'], output_path='output.xlsx')
 
 # Read in colour array from properties file
 def read_file(file_path: object) -> object:
@@ -22,6 +31,8 @@ def read_file(file_path: object) -> object:
              key, value = line.strip().split('=')
              data.append((value))
      return data
+
+# Convert the CSV file
 
 # Read the CSV file
 # def read_csv_file(file_path: object) -> object:
@@ -48,15 +59,9 @@ def read_file(file_path: object) -> object:
 #             data.append((value))
 #     return data
 
-
-
 # Usage
 file_path = 'properties'
 result = read_file(file_path)
-#result = read_csv_file(file_path)
-
-# print(result)
-
 
 def get_fig_data(r_values, user_name):
     # Create a polar area chart using four coolors, static categories, and variable values
@@ -93,7 +98,7 @@ def get_fig_data(r_values, user_name):
 
 
 #input_file = './Users.csv' #     filename = 'Users.csv'
-input_file = './Users.xlsx'
+input_file = './user.xlsx'
 check_file = os.path.isfile(input_file)
 
 if os.path.isfile(input_file):
@@ -103,7 +108,8 @@ else:
     exit()
 
 # Define input excel. Change this is using a different named file
-xls = pd.ExcelFile("Users.xlsx")
+#[TODO] change this to filename as individual
+xls = pd.ExcelFile("user.xlsx")
 html_content = ''
 
 # Read data from excel sheet
