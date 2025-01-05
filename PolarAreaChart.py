@@ -93,7 +93,7 @@ def get_fig_data(r_values, user_name):
 
 
 #input_file = './Users.csv' #     filename = 'Users.csv'
-input_file = './Users.xlsx'
+input_file = './user.xlsx'
 check_file = os.path.isfile(input_file)
 
 if os.path.isfile(input_file):
@@ -103,7 +103,8 @@ else:
     exit()
 
 # Define input excel. Change this is using a different named file
-xls = pd.ExcelFile("Users.xlsx")
+#[TODO] change this to filename as individual
+xls = pd.ExcelFile("user.xlsx")
 html_content = ''
 
 # Read data from excel sheet
