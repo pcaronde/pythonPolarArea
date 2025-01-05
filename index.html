@@ -142,7 +142,7 @@
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "form_data.csv");
+            link.setAttribute("download", "user.csv");
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
