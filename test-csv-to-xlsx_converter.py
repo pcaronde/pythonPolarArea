@@ -1,6 +1,7 @@
 import unittest
 import pandas as pd
 import os
+import openpyxl
 from pathlib import Path
 import logging
 from csv_to_xlsx_converter import convert_csv_to_xlsx
