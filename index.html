@@ -24,13 +24,30 @@
             line-height: 1.4;
         }
         input {
+            flex-shrink: 0;
+        }
+        input[type="number"] {
             width: 25px;
             height: 25px;
-            flex-shrink: 0;
             text-align: center;
+        }
+        input[type="text"] {
+            width: 300px;
+            height: 25px;
+            padding: 2px 8px;
         }
         button {
             margin-top: 20px;
+        }
+        .header-field {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-field label {
+            width: auto;
+            white-space: nowrap;
         }
     </style>
 </head>
@@ -49,10 +66,14 @@
         <li>4 - Good</li>
         <li>5 - Excellent</li>
     </ul>
-    <h2>Name: </h2>
+
     <h2>Date: </h2>
 
     <form id="inputForm">
+        <div class="header-field">
+            <label for="employeeName"><strong>Employee Name:</strong></label>
+            <input type="text" id="employeeName" name="employeeName" maxlength="250" required>
+        </div>
         <h3>Strategy and Business</h3>
         <div class="field">
             <input type="number" id="sharedVision" name="sharedVision" min="0" max="5" value="0">
@@ -143,6 +164,7 @@
         function save() {
             const form = document.getElementById('inputForm');
             const formData = new FormData(form);
+            const employeeName = formData.get('employeeName');
 
             let csvContent = "data:text/csv;charset=utf-8,";
             csvContent += "Categories,Ratings\n";
@@ -154,7 +176,9 @@
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "user.csv");
+
+            link.setAttribute("download", `${employeeName}.csv`);
+            /*link.setAttribute("download", "user.csv");*/
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);

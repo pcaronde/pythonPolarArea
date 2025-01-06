@@ -5,7 +5,7 @@ import os
 import pandas as pd
 from csv_to_xlsx_converter import convert_csv_to_xlsx
 
-# Add user data
+# Add user data categories
 categories = ['Shared Vision', 'Strategy', 'Business Alignment', 'Subordinates for Success', 'Cross-functional teams',
               'Clarity on priorities', 'Acceptance Criteria', 'Enable Focus', 'Engagement', 'Feedback',
               'Enable Autonomy', 'Change and ambiguity', 'Desired Culture', 'Work autonomously', 'Stakeholders',
