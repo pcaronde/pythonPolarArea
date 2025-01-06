@@ -23,10 +23,10 @@ pip install pandas openpyxl
 ```
 
 ## Installation
-
+The file `csv_to_xlsx_converter.py` can be used as a standalone conversion tool.
 1. Clone this repository or download the script:
 ```bash
-git clone https://your-repository-url/csv-to-xlsx-converter.git
+git clone https://github.com/pcaronde/pythonPolarArea/csv-to-xlsx-converter.git
 cd csv-to-xlsx-converter
 ```
 
@@ -58,7 +58,7 @@ python csv_to_xlsx_converter.py -o output.xlsx file1.csv file2.csv
 
 ### Python API
 
-You can also use the converter in your Python code:
+We use the converter directly in our Python code like this:
 
 ```python
 from csv_to_xlsx_converter import convert_csv_to_xlsx

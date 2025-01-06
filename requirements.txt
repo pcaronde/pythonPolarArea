@@ -1,0 +1,7 @@
+# These are the plain name requirements.
+pytest
+os
+plotly
+unittest
+pandas
+logging
