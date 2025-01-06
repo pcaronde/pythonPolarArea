@@ -98,25 +98,6 @@ class TestCSVToXLSXConverter(unittest.TestCase):
         """Test handling of empty input list"""
         with self.assertRaises(SystemExit):
             convert_csv_to_xlsx([])
-#[TODO] Inspect these tests to see if they are still useful
-    # def test_mixed_valid_invalid_files(self):
-    #     """Test handling of mix of valid and invalid files"""
-    #     # Create a non-CSV file
-    #     txt_path = self.test_dir / 'test.txt'
-    #     txt_path.touch()
-    #
-    #     output_path = self.test_dir / 'output_mixed.xlsx'
-    #     with self.assertRaises(SystemExit):
-    #         convert_csv_to_xlsx([str(txt_path), str(self.csv_path1)], str(output_path))
-
-    # def test_successful_conversion_logging(self):
-    #     """Test logging output for successful conversion"""
-    #     with self.assertLogs(level='INFO') as log:
-    #         output_path = self.test_dir / 'output_log.xlsx'
-    #         convert_csv_to_xlsx([str(self.csv_path1)], str(output_path))
-    #
-    #         self.assertTrue(any('Successfully created Excel file' in msg for msg in log.output))
-    #         self.assertTrue(any('Total sheets created: 1' in msg for msg in log.output))
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
