@@ -13,7 +13,6 @@ categories = ['Shared Vision', 'Strategy', 'Business Alignment', 'Subordinates f
 
 
 # Convert the CSV file
-# [TODO] prepare variable for csv filename
 # Convert single file
 convert_csv_to_xlsx('user.csv')
 
