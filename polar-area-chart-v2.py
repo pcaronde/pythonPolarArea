@@ -6,10 +6,10 @@ import pandas as pd
 from csv_to_xlsx_converter import convert_csv_to_xlsx
 
 # Add user data categories
-categories = ['Shared Vision', 'Strategy', 'Business Alignment', 'Subordinates for Success', 'Cross-functional teams',
-              'Clarity on priorities', 'Acceptance Criteria', 'Enable Focus', 'Engagement', 'Feedback',
-              'Enable Autonomy', 'Change and ambiguity', 'Desired Culture', 'Work Autonomously', 'Stakeholders',
-              'Customer Focus', 'Attrition', 'Teams', 'Develop People']
+categories = ['Shared Vision', 'Strategy', 'Business Alignment', 'Customer Focus', 'Cross-functional Cooperation',
+              'Prioritisation', 'Acceptance Criteria', 'Enable Focus', 'Engagement', 'Feedback',
+              'Enable Autonomy', 'Change and Ambiguity', 'Desired Culture', 'Works Autonomously', 'Stakeholder Mgmt',
+               'Team Attrition', 'Team Structure', 'Develops People', 'Subordinates for Success']
 
 #[TODO] Rearrange categories to match
 # Strategy
@@ -18,7 +18,7 @@ categories = ['Shared Vision', 'Strategy', 'Business Alignment', 'Subordinates f
 # Stakeholder
 
 # Convert the CSV file
-convert_csv_to_xlsx('user.csv')
+convert_csv_to_xlsx('user-v2.csv')
 
 # Read in colour array from properties file
 def read_file(file_path: object) -> object:
@@ -88,36 +88,38 @@ explanatory_html = """
 
     <h2>Assessment Categories</h2>
     
-    <h3>Strategy and Business</h3>
+    <h3>Strategic Vision and Business Alignment</h3>
     <div><strong>Shared Vision:</strong> Consistently demonstrates alignment between personal objectives and company vision through actions and decisions.</div>
     <div><strong>Strategy:</strong> Effectively develops strategic plans and translates them into actionable tactical steps.</div>
     <div><strong>Business Alignment:</strong> Demonstrates clear connection between daily activities and broader company objectives.</div>
-    <div><strong>Prepare subordinates for success:</strong> Actively mentors and provides resources to direct reports to help them achieve their goals.</div>
+    <div><strong>Customer Focus:</strong> Consistently prioritises customer needs and satisfaction in decision-making and actions.</div>
 
     <h3>Focus and Engagement</h3>
-    <div><strong>Enables cross-functional work:</strong> Successfully builds relationships and collaborates across teams and departments to achieve shared objectives.</div>
+    <div><strong>Enables Cross-functional Work:</strong> Successfully builds relationships and collaborates across teams and departments to achieve shared objectives.</div>
     <div><strong>Clarity of Priorities:</strong> Systematically evaluates and ranks tasks based on importance, ensuring efficient execution.</div>
     <div><strong>Acceptance Criteria:</strong> Clearly defines and communicates quality standards for deliverables.</div>
-    <div><strong>Enabling Focus:</strong> Creates clear roadmaps with specific milestones and maintains team focus on key objectives.</div>
+    <div><strong>Focus:</strong> Creates clear roadmaps with specific milestones and maintains team focus on key objectives.</div>
     <div><strong>Engagement:</strong> Shows consistent enthusiasm and dedication in approaching work responsibilities.</div>
 
     <h3>Autonomy and Change</h3>
     <div><strong>Feedback:</strong> Delivers constructive feedback effectively while remaining open and responsive to receiving input from others.</div>
-    <div><strong>Enabling Autonomy:</strong> Empowers team members to make decisions and innovate within appropriate boundaries.</div>
-    <div><strong>Change and ambiguity:</strong> Maintains effectiveness and adapts quickly when facing uncertain or changing circumstances.</div>
-    <div><strong>Desired Culture:</strong> Demonstrates and promotes behaviours that align with and strengthen company values.</div>
-    <div><strong>Works autonomously:</strong> Effectively self-manages time and priorities to deliver optimal results independently.</div>
+    <div><strong>Enables Autonomy:</strong> Empowers team members to make decisions and innovate within appropriate boundaries.</div>
+    <div><strong>Accepts Change and Ambiguity:</strong> Maintains effectiveness and adapts quickly when facing uncertain or changing circumstances.</div>
+    <div><strong>Promotes Desired Culture:</strong> Demonstrates and promotes behaviours that align with and strengthen company values.</div>
+    <div><strong>Works Autonomously:</strong> Effectively self-manages time and priorities to deliver optimal results independently.</div>
 
-    <h3>Stakeholders and Customers</h3>
-    <div><strong>Stakeholders:</strong> Identifies key stakeholders and demonstrates a deep understanding of their explicit and implicit needs.</div>
-    <div><strong>Customer Focus:</strong> Consistently prioritises customer needs and satisfaction in decision-making and actions.</div>
+    <h3>Stakeholders and Team</h3>
+    <div><strong>Stakeholder Management:</strong> Identifies key stakeholders and demonstrates a deep understanding of their explicit and implicit needs.</div>
     <div><strong>Team Attrition:</strong> Maintains strong working relationships that inspire loyalty and respect from team members.</div>
-    <div><strong>Teams:</strong> Consistently prioritises team success over individual recognition or achievement.</div>
-    <div><strong>Developing People:</strong> Actively identifies and creates opportunities for team members' professional growth and skill development.</div>
+    <div><strong>Team Focus:</strong> Consistently prioritises team success over individual recognition or achievement.</div>
+    <div><strong>Develops People:</strong> Actively identifies and creates opportunities for team members' professional growth and skill development.</div>
+    <div><strong>Prepare subordinates for success:</strong> Actively mentors and provides resources to direct reports to help them achieve their goals.</div>
+
 </div>
 """
 
-input_file = './user.xlsx'
+# [TODO] use input_file from user name
+input_file = './user-v2.xlsx'
 check_file = os.path.isfile(input_file)
 
 if os.path.isfile(input_file):
@@ -127,7 +129,7 @@ else:
     exit()
 
 # Define input excel. Change this is using a different named file
-xls = pd.ExcelFile("user.xlsx")
+xls = pd.ExcelFile(input_file)
 html_content = ''
 
 # Read data from excel sheet
@@ -143,15 +145,15 @@ for sheet_name in xls.sheet_names:
 html_content += explanatory_html
 
 # Here we output our results to html
-output_file = './Assessments.html'
+output_file = './assessment-v2.html'
 
 # Make sure we backup any existing output file
-if os.path.isfile("Assessments.html"):
+if os.path.isfile("assessment-v2.html"):
     print(f'The output file {output_file} already exists. Overwriting.')
     print(f'A backup copy will be saved to .bak')
     os.rename(output_file, output_file+'.bak')
 else:
     print(f'The output file {output_file} does not exist. Executing ...')
 
-with open("Assessments.html", "w") as f:
+with open("assessment-v2.html", "w") as f:
     f.write(html_content)

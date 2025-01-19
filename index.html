@@ -70,11 +70,11 @@
     <h2>Date: </h2>
 
     <form id="inputForm">
-        <div class="header-field">
+        <!--<div class="header-field">
             <label for="employeeName"><strong>Employee Name:</strong></label>
             <input type="text" id="employeeName" name="employeeName" maxlength="250" required>
-        </div>
-        <h3>Strategy and Business</h3>
+        </div>-->
+        <h3>Strategic Vision and Business Alignment</h3>
         <div class="field">
             <input type="number" id="sharedVision" name="sharedVision" min="0" max="5" value="0">
             <label for="sharedVision"><strong>Shared Vision:</strong> Consistently demonstrates alignment between personal objectives and company vision through actions and decisions.</label>
@@ -88,8 +88,8 @@
             <label for="businessAlignment"><strong>Business Alignment:</strong> Demonstrates clear connection between daily activities and broader company objectives.</label>
         </div>
         <div class="field">
-            <input type="number" id="subordinatesForSuccess" name="subordinatesForSuccess" min="0" max="5" value="0">
-            <label for="subordinatesForSuccess"><strong>Prepare subordinates for success:</strong> Actively mentors and provides resources to direct reports to help them achieve their goals.</label>
+            <input type="number" id="customerFocus" name="customerFocus" min="0" max="5" value="0">
+            <label for="customerFocus"><strong>Customer Focus:</strong> Consistently prioritises customer needs and satisfaction in decision-making and actions.</label>
         </div>
         <h3>Focus and Engagement</h3>
         <div class="field">
@@ -106,7 +106,7 @@
         </div>
         <div class="field">
             <input type="number" id="enablingFocus" name="enablingFocus" min="0" max="5" value="0">
-            <label for="enablingFocus"><strong>Enabling Focus:</strong> Creates clear roadmaps with specific milestones and maintains team focus on key objectives.</label>
+            <label for="enablingFocus"><strong> Focus:</strong> Creates clear roadmaps with specific milestones and maintains team focus on key objectives.</label>
         </div>
         <div class="field">
             <input type="number" id="engagement" name="engagement" min="0" max="5" value="0">
@@ -120,11 +120,11 @@
         </div>
         <div class="field">
             <input type="number" id="enablingAutonomy" name="enablingAutonomy" min="0" max="5" value="0">
-            <label for="enablingAutonomy"><strong>Enabling Autonomy:</strong> Empowers team members to make decisions and innovate within appropriate boundaries.</label>
+            <label for="enablingAutonomy"><strong>Enables Autonomy:</strong> Empowers team members to make decisions and innovate within appropriate boundaries.</label>
         </div>
         <div class="field">
             <input type="number" id="changeAndAmbiguity" name="changeAndAmbiguity" min="0" max="5" value="0">
-            <label for="changeAndAmbiguity"><strong>Change and ambiguity:</strong> Maintains effectiveness and adapts quickly when facing uncertain or changing circumstances.</label>
+            <label for="changeAndAmbiguity"><strong>Change and Ambiguity:</strong> Maintains effectiveness and adapts quickly when facing uncertain or changing circumstances.</label>
         </div>
         <div class="field">
             <input type="number" id="desiredCulture" name="desiredCulture" min="0" max="5" value="0">
@@ -132,29 +132,31 @@
         </div>
         <div class="field">
             <input type="number" id="workAutonomously" name="workAutonomously" min="0" max="5" value="0">
-            <label for="workAutonomously"><strong>Works autonomously:</strong> Effectively self-manages time and priorities to deliver optimal results independently.</label>
+            <label for="workAutonomously"><strong>Works Autonomously:</strong> Effectively self-manages time and priorities to deliver optimal results independently.</label>
         </div>
 
-        <h3>Stakeholders and Customers</h3>
+        <h3>Stakeholders and Team</h3>
         <div class="field">
             <input type="number" id="stakeholders" name="stakeholders" min="0" max="5" value="0">
             <label for="stakeholders"><strong>Stakeholders:</strong> Identifies key stakeholders and demonstrates a deep understanding of their explicit and implicit needs.</label>
         </div>
-        <div class="field">
-            <input type="number" id="customerFocus" name="customerFocus" min="0" max="5" value="0">
-            <label for="customerFocus"><strong>Customer Focus:</strong> Consistently prioritises customer needs and satisfaction in decision-making and actions.</label>
-        </div>
+
         <div class="field">
             <input type="number" id="teamAttrition" name="teamAttrition" min="0" max="5" value="0">
             <label for="teamAttrition"><strong>Team Attrition:</strong> Maintains strong working relationships that inspire loyalty and respect from team members.</label>
         </div>
         <div class="field">
             <input type="number" id="teams" name="teams" min="0" max="5" value="0">
-            <label for="teams"><strong>Teams:</strong> Consistently prioritises team success over individual recognition or achievement.</label>
+            <label for="teams"><strong>Team Focus:</strong> Consistently prioritises team success over individual recognition or achievement.</label>
         </div>
         <div class="field">
             <input type="number" id="developingPeople" name="developingPeople" min="0" max="5" value="0">
-            <label for="developingPeople"><strong>Developing People:</strong> Actively identifies and creates opportunities for team members' professional growth and skill development.</label>
+            <label for="developingPeople"><strong>Develops People:</strong> Actively identifies and creates opportunities for team members' professional growth and skill development.</label>
+        </div>
+        <div class="field">
+            <input type="number" id="subordinatesForSuccess" name="subordinatesForSuccess" min="0" max="5" value="0">
+            <label for="subordinatesForSuccess"><strong>Prepare subordinates for success:</strong> Actively mentors and
+                provides resources to direct reports to help them achieve their goals.</label>
         </div>
 
         <button type="button" onclick="save()">Save</button>
@@ -176,9 +178,9 @@
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-
-            link.setAttribute("download", `${employeeName}.csv`);
-            /*link.setAttribute("download", "user.csv");*/
+            /* [TODO] create username export */
+           /*  link.setAttribute("download", `${employeeName}-v2.csv`); */
+            link.setAttribute("download", "user-v2.csv");
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
