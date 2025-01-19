@@ -5,34 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Performance Assessment</title>
     <style>
-        /* ... existing styles ... */
-        .save-options {
-            margin-top: 20px;
-            padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        .save-options label {
-            width: auto;
-            margin-right: 15px;
-        }
-        #saveLocation {
-            width: 300px;
-            margin-right: 10px;
-        }
-        .btn-group {
+        .field {
+            margin-bottom: 10px;
             display: flex;
+            align-items: center;
             gap: 10px;
-            margin-top: 20px;
+        }
+        label {
+            display: inline-block;
+            width: 800px;
+            margin-bottom: 0;
+            line-height: 1.4;
+        }
+        input {
+            flex-shrink: 0;
+        }
+        input[type="number"] {
+            width: 25px;
+            height: 25px;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 300px;
+            height: 25px;
+            padding: 2px 8px;
         }
         button {
-            padding: 8px 16px;
-            cursor: pointer;
+            margin-top: 20px;
+        }
+        .header-field {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-field label {
+            width: auto;
+            white-space: nowrap;
         }
     </style>
 </head>
 <body>
-    <!-- ... existing content ... -->
     <img height="150" src="logo.png" width="150">
     <h1>Performance Assessment</h1>
     The main goal of a performance assessment is to evaluate an employee's job performance in accordance with predefined standards and criteria.
@@ -140,7 +159,7 @@
                 provides resources to direct reports to help them achieve their goals.</label>
         </div>
 
-        <!--button type="button" onclick="save()">Save (Test only)</button-->
+        <button type="button" onclick="save()">Save</button>
     </form>
 
     <script>
@@ -165,70 +184,6 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-        }
-    </script>
-    <div class="btn-group">
-        <button type="button" onclick="saveAndVisualize()">Save and Generate Visualization</button>
-        <button type="button" onclick="saveOnly()">Save Only</button>
-    </div>
-
-    <script>
-        const defaultSaveLocation = './';
-
-        async function saveOnly() {
-            const formData = new FormData(document.getElementById('inputForm'));
-            let csvContent = "Categories,Ratings\n";
-
-            for (let [key, value] of formData.entries()) {
-                csvContent += `${key},${value}\n`;
-            }
-
-            try {
-                const response = await fetch('/save-csv', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        content: csvContent,
-                        location: defaultSaveLocation,
-                        filename: 'user-v2.csv'
-                    })
-                });
-
-                if (response.ok) {
-                    alert('Assessment saved successfully!');
-                } else {
-                    throw new Error('Failed to save file');
-                }
-            } catch (error) {
-                alert('Error saving file: ' + error.message);
-            }
-        }
-
-        async function saveAndVisualize() {
-            await saveOnly();
-
-            try {
-                const response = await fetch('/generate-visualization', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        location: defaultSaveLocation
-                    })
-                });
-
-                if (response.ok) {
-                    // Open the generated assessment in a new tab
-                    window.open(`${defaultSaveLocation}/assessment-v2.html`, '_blank');
-                } else {
-                    throw new Error('Failed to generate visualization');
-                }
-            } catch (error) {
-                alert('Error generating visualization: ' + error.message);
-            }
         }
     </script>
 </body>
