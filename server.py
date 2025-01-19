@@ -11,9 +11,9 @@ CORS(app)  # Enable CORS for all routes
 def serve_index():
     return send_from_directory('.', 'index.html')
 
-@app.route('/Users/petercaron/PycharmProjects/pythonPolarArea/<path:filename>')
+@app.route('./<path:filename>')
 def serve_assessment(filename):
-    return send_from_directory('/Users/petercaron/PycharmProjects/pythonPolarArea', filename)
+    return send_from_directory('./', filename)
 
 @app.route('/save-csv', methods=['POST'])
 def save_csv():
