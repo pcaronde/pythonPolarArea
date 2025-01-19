@@ -2,11 +2,11 @@
 A Python script to create and fill in PolarCharts with some values and labels
 
 ## How to run
-start server.py 
+1. start server.py 
 ```python3 server.py```
-This starts a server on port 5000
-Navigate a browser to http://localhost:5000/
-Fill in form and choose generate visualisation button
+2. This starts a server on port 5000
+3. Navigate a browser to http://localhost:5000/
+4. Fill in form and choose generate visualisation button
 # DEPRECATED
 
 ### Script in a Container
