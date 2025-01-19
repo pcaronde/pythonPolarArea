@@ -1,3 +1,6 @@
+# server.py
+# usage: python3 server.py
+# starts server on port 5000
 from flask import Flask, request, jsonify, send_from_directory
 import os
 import subprocess
