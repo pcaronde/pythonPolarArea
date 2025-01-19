@@ -19,7 +19,6 @@ def serve_index():
 def serve_file(filename):
     return send_from_directory('.', filename)
 
-
 @app.route('/save-csv', methods=['POST'])
 def save_csv():
     try:
