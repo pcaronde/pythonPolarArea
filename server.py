@@ -2,7 +2,6 @@
 # usage: python3 server.py
 # starts server on port 5000
 from flask import Flask, request, jsonify, send_from_directory
-import os
 import subprocess
 from flask_cors import CORS
 
@@ -18,6 +17,7 @@ def serve_index():
 @app.route('/<path:filename>')
 def serve_file(filename):
     return send_from_directory('.', filename)
+
 
 @app.route('/save-csv', methods=['POST'])
 def save_csv():

@@ -1,8 +1,8 @@
 # These are the plain name requirements.
 pytest
-os
 plotly
-unittest
 pandas
 logging
 openpyxl
+flask
+flask_cors
