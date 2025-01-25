@@ -27,7 +27,7 @@ def read_file(file_path: object) -> object:
      with open(file_path, 'r') as file:
          for line in file:
              key, value = line.strip().split('=')
-             data.append((value))
+             data.append(value)
      return data
 
 # Usage
@@ -148,13 +148,13 @@ html_content += explanatory_html
 # Here we output our results to html
 output_file = './assessment-v2.html'
 
-# Make sure we backup any existing output file
+# Make sure we back up any existing output file
 if os.path.isfile("assessment-v2.html"):
-    print(f'The output file {output_file} already exists. Overwriting.')
-    print(f'A backup copy will be saved to .bak')
-    os.rename(output_file, output_file+'.bak')
+     print(f'The output file {output_file} already exists. Overwriting.')
+     print('A backup copy will be saved to .bak')
+     os.rename(output_file, f'{output_file}.bak')
 else:
-    print(f'The output file {output_file} does not exist. Executing ...')
+     print(f'The output file {output_file} does not exist. Executing ...')
 
 with open("assessment-v2.html", "w") as f:
     f.write(html_content)

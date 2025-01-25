@@ -3,7 +3,6 @@ import sys
 from pathlib import Path
 from typing import List, Union, Optional
 import logging
-import openpyxl
 
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 
