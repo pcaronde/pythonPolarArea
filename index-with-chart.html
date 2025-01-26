@@ -24,6 +24,12 @@
     </ul>
 
     <h2>Date: <span id="currentDate"></span></h2>
+    <form id="employeeName">
+        <label for="employeeName">Name:</label>
+        <label>
+            <input type="text" name="employeeName" placeholder="Name" required>
+        </label>
+    </form>
 
     <form id="inputForm">
         <h3>Strategic Vision and Business Alignment</h3>
@@ -115,7 +121,7 @@
 
     <div class="btn-group">
         <!--<button type="button" onclick="updateChartAndSave()">Update Chart</button>-->
-        <button type="button" onclick="saveOnly()">Save to csv</button>
+        <button type="button" onclick="saveOnly()">Save to CSV</button>
     </div>
 
     <div class="chart-container">
@@ -313,7 +319,9 @@
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.setAttribute("download", "user-v2.csv");
+            link.setAttribute("download", "user-v3.csv");
+
+            //link.setAttribute("download", `${employeeName}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
