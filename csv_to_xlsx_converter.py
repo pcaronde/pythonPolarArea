@@ -38,8 +38,20 @@ def convert_csv_to_xlsx(
         logging.info(f"\nSuccessfully created Excel file: {output_path.name}")
         logging.info(f"Total sheets created: {len(csv_files)}")
 
+    except FileNotFoundError as e:
+        logging.error(f"Input file not found: {e}")
+        sys.exit(1)
+    except PermissionError as e:
+        logging.error(f"Permission denied when accessing file: {e}")
+        sys.exit(1)
+    except pd.errors.EmptyDataError as e:
+        logging.error(f"One of the CSV files is empty: {e}")
+        sys.exit(1)
+    except pd.errors.ParserError as e:
+        logging.error(f"Error parsing CSV file: {e}")
+        sys.exit(1)
     except Exception as e:
-        logging.error(f"Error converting files: {e}")
+        logging.error(f"Unexpected error while converting files: {str(e)}")
         sys.exit(1)
 
 def main():
