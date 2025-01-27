@@ -24,10 +24,10 @@
     </ul>
 
     <h2>Date: <span id="currentDate"></span></h2>
-    <form id="employeeName">
-        <label for="employeeName">Name:</label>
+    <form id="employeeNameForm">
+        <label for="employeeNameForm">Name:</label>
         <label>
-            <input type="text" name="employeeName" placeholder="Name" required>
+            <input type="text" id=employeeName name="employeeName" placeholder="Name" required>
         </label>
     </form>
 
@@ -269,8 +269,8 @@
                         },
                         title: {
                             display: true,
-                            //text:  document.getElementById('employeeName').textContent + ' - ' + 'Results'
-                            text: 'Results'
+                            text:  document.getElementById('employeeName').v + ' - ' + 'Results'
+                            //text: 'Results'
                         },
                         tooltip: {
                             callbacks: {
@@ -333,6 +333,7 @@
             document.body.removeChild(link);
         }
 
+        // [TODO] Add event listener for Name Textbox employeeName
         // Add event listeners to all inputs to update chart on change
         document.querySelectorAll('input[type="number"]').forEach(input => {
             input.addEventListener('change', () => {
