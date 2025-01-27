@@ -222,6 +222,7 @@
                             },
                             pointLabels: {
                                 display: true,
+                                centerPointLabels: true,
                                 font: {
                                     size: 10
                                 },
@@ -236,7 +237,7 @@
                         legend: {
                             position: 'top',
                             labels: {
-                                generateLabels: function(chart) {
+                                generateLabels: function (chart) {
                                     // Return only the four main themes for the legend
                                     return [{
                                         text: 'Strategic Vision',
@@ -265,6 +266,11 @@
                                     }];
                                 }
                             },
+                        },
+                        title: {
+                            display: true,
+                            //text:  document.getElementById('employeeName').textContent + ' - ' + 'Results'
+                            text: 'Results'
                         },
                         tooltip: {
                             callbacks: {
