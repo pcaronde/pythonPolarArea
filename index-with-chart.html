@@ -226,7 +226,7 @@
                                 font: {
                                     size: 10
                                 },
-                                callback: function(label) {
+                                callback: function (label) {
                                     // Split the label at the colon and return only the metric name
                                     return label.split(': ')[1];
                                 }
@@ -269,8 +269,8 @@
                         },
                         title: {
                             display: true,
-                            text:  document.getElementById('employeeName').v + ' - ' + 'Results'
-                            //text: 'Results'
+                            //text:  document.getElementById('employeeName') + ' - ' + 'Results'
+                            text: 'Results'
                         },
                         tooltip: {
                             callbacks: {
@@ -313,6 +313,17 @@
             performanceChart.update();
         }
 
+        let currentEmployeeName = '';
+
+        // Add event listener for employee name input
+        document.getElementById('employeeName').addEventListener('input', function (e) {
+            currentEmployeeName = e.target.value.trim();
+            // Also update the chart title if needed
+            if (performanceChart) {
+                performanceChart.options.plugins.title.text = currentEmployeeName ? `${currentEmployeeName} - Results` : 'Results';
+                performanceChart.update();
+            }
+        });
         async function saveOnly() {
             const formData = new FormData(document.getElementById('inputForm'));
             let csvContent = "Categories,Ratings\n";
@@ -322,24 +333,20 @@
             }
 
             // Create and trigger download
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const blob = new Blob([csvContent], {type: 'text/csv;charset=utf-8;'});
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.setAttribute("download", "user-v3.csv");
 
-            //link.setAttribute("download", `${employeeName}.csv`);
+            // Use the employee name for the filename if available, otherwise use default
+            const filename = currentEmployeeName
+                ? `${currentEmployeeName.replace(/[^a-z0-9]/gi, '_')}_assessment.csv`
+                : "user_assessment.csv";
+
+            link.setAttribute("download", filename);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         }
-
-        // [TODO] Add event listener for Name Textbox employeeName
-        // Add event listeners to all inputs to update chart on change
-        document.querySelectorAll('input[type="number"]').forEach(input => {
-            input.addEventListener('change', () => {
-                updateChart();
-            });
-        });
     </script>
 </body>
 </html>
