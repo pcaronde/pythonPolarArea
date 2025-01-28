@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> <!-- index.html -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -347,6 +347,13 @@
             link.click();
             document.body.removeChild(link);
         }
+
+        // Add event listeners to all inputs to update chart on change
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('change', () => {
+                updateChart();
+            });
+        });
     </script>
 </body>
 </html>
