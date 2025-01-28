@@ -11,12 +11,12 @@ CORS(app)  # Enable CORS for all routes
 
 @app.route('/')
 def serve_index():
-    return send_from_directory('.', 'index-deprecated.html')
+    return send_from_directory('..', 'deprecated code/index-deprecated.html')
 
 
 @app.route('/<path:filename>')
 def serve_file(filename):
-    return send_from_directory('.', filename)
+    return send_from_directory('..', filename)
 
 
 @app.route('/save-csv', methods=['POST'])

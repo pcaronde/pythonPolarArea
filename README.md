@@ -1,6 +1,14 @@
 # Create polar area charts 
-A Python script to create and fill in PolarCharts with some values and labels
+A webpage to collect with some values and and output a polar chart using chart.js
 
+## Requirements
+index.html
+styles.css
+
+## How to run
+set index.html in the / directory of your web server
+
+# DEPRECATED
 ## How to run
 1. start server.py 
 ```python3 server.py```
