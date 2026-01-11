@@ -4,9 +4,10 @@
  */
 class APIClient {
   constructor() {
+    // Use dynamic URL based on current location
     this.baseURL = window.location.hostname === 'localhost'
       ? 'http://localhost:5000/api'
-      : 'https://api.yourdomain.com/api'; // Update for production
+      : window.location.origin + '/api';
 
     this.token = localStorage.getItem('authToken');
   }
