@@ -19,7 +19,7 @@
 
 set -e  # Exit on error
 
-# Colors for output
+# Colours for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -64,11 +64,11 @@ fi
 
 echo -e "${YELLOW}Step 3: Installing MongoDB...${NC}"
 if ! command -v mongod &> /dev/null; then
-    curl -fsSL https://pgp.mongodb.com/server-7.0.asc | \
-       gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+    curl -fsSL https://pgp.mongodb.com/server-8.0.asc | \
+       gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
 
-    echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | \
-       tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+    echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/8.0 multiverse" | \
+       tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 
     apt update
     apt install -y mongodb-org
@@ -139,7 +139,8 @@ if [ ! -f "$APP_DIR/.env" ]; then
 # Server Configuration
 NODE_ENV=production
 PORT=5000
-FRONTEND_URL=https://yourdomain.com
+# FRONTEND_URL=https://yourdomain.com
+FRONTEND_URL=https://performance.pcconsulting.eu
 
 # MongoDB Configuration
 MONGODB_URI=mongodb://perfassess_app:CHANGE_THIS_PASSWORD@localhost:27017/hr_performance?authSource=hr_performance
@@ -208,6 +209,7 @@ if command -v ufw &> /dev/null; then
     ufw default allow outgoing
     ufw allow 22/tcp comment 'SSH'
     ufw allow 80/tcp comment 'HTTP'
+    ufw allow 3000/tcp comment 'ALT_HTTP'
     ufw allow 443/tcp comment 'HTTPS'
     echo -e "${GREEN}✓ Firewall configured${NC}"
 else
@@ -227,7 +229,7 @@ echo "   use hr_performance"
 echo "   db.createUser({user: 'perfassess_app', pwd: 'YOUR_PASSWORD', roles: [{role: 'readWrite', db: 'hr_performance'}]})"
 echo ""
 echo "2. Update .env file with your configuration:"
-echo "   sudo nano $APP_DIR/.env"
+echo "   sudo vim $APP_DIR/.env"
 echo "   - Update FRONTEND_URL with your domain"
 echo "   - Update MONGODB_URI with MongoDB password"
 echo ""
@@ -237,16 +239,18 @@ echo "   sudo -u $APP_USER pm2 save"
 echo "   sudo env PATH=\$PATH:/usr/bin pm2 startup systemd -u $APP_USER --hp /home/$APP_USER"
 echo ""
 echo "4. Configure Nginx (see DEPLOYMENT.md for full config)"
-echo "   sudo nano /etc/nginx/sites-available/performance-assessment"
+echo "   sudo vim /etc/nginx/sites-available/performance-assessment"
 echo "   sudo ln -s /etc/nginx/sites-available/performance-assessment /etc/nginx/sites-enabled/"
 echo "   sudo nginx -t"
 echo "   sudo systemctl reload nginx"
 echo ""
 echo "5. Get SSL certificate:"
-echo "   sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com"
+# echo "   sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com"
+echo "   sudo certbot --nginx -d performance.pcconsulting.eu -d www.performance.pcconsulting.eu"
 echo ""
 echo "6. Test your application:"
-echo "   https://yourdomain.com"
+# echo "   https://yourdomain.com"
+echo "   https://performance.pcconsulting.eu"
 echo ""
 echo -e "${GREEN}For detailed instructions, see DEPLOYMENT.md${NC}"
 echo ""

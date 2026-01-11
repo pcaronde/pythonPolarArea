@@ -62,7 +62,8 @@ sudo chown perfassess:perfassess /var/www/performance-assessment
 
 ```bash
 # Install NodeSource repository
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+# DEPRECATED OLD curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+NEW curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash - 
 
 # Install Node.js
 sudo apt install -y nodejs
@@ -78,12 +79,12 @@ npm --version
 
 ```bash
 # Import MongoDB GPG key
-curl -fsSL https://pgp.mongodb.com/server-7.0.asc | \
-   sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+curl -fsSL https://pgp.mongodb.com/server-8.0.asc | \
+   sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
 
 # Add MongoDB repository
-echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | \
-   sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/8.0 multiverse" | \
+   sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 
 # Update and install
 sudo apt update
@@ -143,17 +144,19 @@ mongosh
 
 # Create admin user
 use admin
+
 db.createUser({
   user: "admin",
-  pwd: "STRONG_PASSWORD_HERE",
+  pwd: "STRONG_PASSWORD",
   roles: [{ role: "userAdminAnyDatabase", db: "admin" }]
 })
 
 # Create application user
 use hr_performance
+
 db.createUser({
   user: "perfassess_app",
-  pwd: "STRONG_APP_PASSWORD_HERE",
+  pwd: "STRONG_PASSWORD",
   roles: [{ role: "readWrite", db: "hr_performance" }]
 })
 
@@ -164,7 +167,7 @@ exit
 
 ```bash
 # Edit MongoDB config
-sudo nano /etc/mongod.conf
+sudo vim /etc/mongod.conf
 
 # Add/uncomment these lines:
 security:
@@ -220,7 +223,7 @@ npm run build
 
 ```bash
 cd /var/www/performance-assessment
-nano .env
+vim .env
 ```
 
 Add your production configuration:
@@ -305,7 +308,7 @@ Should show:
 ### 1. Create PM2 Ecosystem File
 
 ```bash
-nano ecosystem.config.js
+vim ecosystem.config.js
 ```
 
 Add configuration:
@@ -384,7 +387,7 @@ pm2 show performance-assessment
 ### 1. Create Nginx Configuration
 
 ```bash
-sudo nano /etc/nginx/sites-available/performance-assessment
+sudo vim /etc/nginx/sites-available/performance-assessment
 ```
 
 Add configuration:
@@ -521,7 +524,7 @@ sudo systemctl status certbot.timer
 ### 3. Update .env
 
 ```bash
-nano .env
+vim .env
 ```
 
 Update FRONTEND_URL:
@@ -632,7 +635,7 @@ sudo systemctl enable fail2ban
 
 ```bash
 # Create update script
-sudo nano /usr/local/bin/security-updates.sh
+sudo vim /usr/local/bin/security-updates.sh
 ```
 
 Add:
@@ -732,7 +735,7 @@ Create backup script:
 
 ```bash
 mkdir -p ~/scripts
-nano ~/scripts/backup-mongodb.sh
+vim ~/scripts/backup-mongodb.sh
 ```
 
 Add:
