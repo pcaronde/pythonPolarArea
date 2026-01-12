@@ -181,7 +181,7 @@ sudo systemctl restart mongod
 
 Your MongoDB URI will be:
 ```
-mongodb://perfassess_app:STRONG_APP_PASSWORD_HERE@localhost:27017/hr_performance?authSource=hr_performance
+mongodb://perfassess:STRONG_APP_PASSWORD_HERE@localhost:27017/hr_performance?authSource=hr_performance
 ```
 
 ## Application Deployment
@@ -235,7 +235,7 @@ PORT=5000
 FRONTEND_URL=https://yourdomain.com
 
 # MongoDB Configuration
-MONGODB_URI=mongodb://perfassess_app:YOUR_PASSWORD@localhost:27017/hr_performance?authSource=hr_performance
+MONGODB_URI=mongodb://perfassess:YOUR_PASSWORD@localhost:27017/hr_performance?authSource=hr_performance
 MONGODB_DB_NAME=hr_performance
 
 # JWT Configuration
