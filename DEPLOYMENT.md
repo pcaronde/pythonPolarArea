@@ -155,7 +155,7 @@ db.createUser({
 use hr_performance
 
 db.createUser({
-  user: "perfassess_app",
+  user: "perfassess",
   pwd: "STRONG_PASSWORD",
   roles: [{ role: "readWrite", db: "hr_performance" }]
 })
@@ -747,7 +747,7 @@ DATE=$(date +%Y%m%d_%H%M%S)
 mkdir -p $BACKUP_DIR
 
 mongodump \
-  --uri="mongodb://perfassess_app:PASSWORD@localhost:27017/hr_performance?authSource=hr_performance" \
+  --uri="mongodb://perfassess:PASSWORD@localhost:27017/hr_performance?authSource=hr_performance" \
   --out="$BACKUP_DIR/backup_$DATE"
 
 # Keep only last 7 days
