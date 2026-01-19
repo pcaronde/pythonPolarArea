@@ -6,6 +6,8 @@ A full-stack web application for conducting and managing employee performance as
 
 - **Interactive Polar Area Charts**: Visual representation of 19 performance metrics across 4 themes
 - **Secure Authentication**: JWT-based user registration and login
+- **User Management**: Admin users can create, edit, and delete user accounts
+- **Role-Based Access**: Two roles - `assessor` (default) and `admin`
 - **MongoDB Persistence**: Auto-save assessments every 5 seconds with offline fallback
 - **Assessment History**: View, search, filter, edit, and delete past assessments
 - **Multi-User Support**: Each user sees only their own assessments
@@ -252,6 +254,26 @@ Open your browser and navigate to:
 - Select a previously exported CSV file
 - Data is loaded and saved to MongoDB
 
+### 9. User Settings
+
+- Click "Settings" in the navigation bar
+- Update your profile (name, email)
+- Change your password (requires current password)
+
+### 10. User Management (Admin Only)
+
+Admin users have access to the User Management section:
+
+- **View all users**: See a table of all registered users
+- **Add new user**: Create accounts with email, password, name, and role
+- **Edit user**: Update any user's information, including role
+- **Delete user**: Remove users (also deletes their assessments)
+
+**Security protections:**
+- Cannot delete your own account
+- Cannot delete the last admin user
+- Cannot demote yourself from admin if you're the last one
+
 ## 🔐 Controlling User Registration
 
 By default, anyone can create a new account. For production environments or when you want to restrict who can access the system, you can disable new user registration.
@@ -310,6 +332,44 @@ db.users.insertOne({
 node -e "const bcrypt = require('bcryptjs'); bcrypt.hash('yourpassword', 12).then(hash => console.log(hash));"
 ```
 
+## 👥 User Roles
+
+The application supports two user roles:
+
+| Role | Permissions |
+|------|-------------|
+| `assessor` | Create/view/edit/delete own assessments, update own profile |
+| `admin` | All assessor permissions + manage all users (create, edit, delete) |
+
+### Making a User an Admin
+
+New users are created with the `assessor` role by default. To promote a user to admin:
+
+**Option 1: Via Admin UI**
+- Login as an existing admin
+- Go to Settings → User Management
+- Click "Edit" on the user
+- Change role to "Admin"
+
+**Option 2: Via MongoDB**
+```javascript
+mongosh hr_performance
+db.users.updateOne(
+  { email: "user@example.com" },
+  { $set: { role: "admin" } }
+)
+```
+
+**Option 3: First User Setup**
+If this is a fresh installation and you need to create the first admin:
+```javascript
+mongosh hr_performance
+db.users.updateOne(
+  { email: "your-email@example.com" },
+  { $set: { role: "admin" } }
+)
+```
+
 ## 📁 Project Structure
 
 ```
@@ -341,6 +401,8 @@ performancePolarArea/
 ├── index-3t.html              # 3T branded version
 ├── login.html                 # Login/register page
 ├── history.html               # Assessment history page
+├── user-config.html           # User settings & admin page
+├── user-config.js             # User settings functionality
 ├── app.js                     # Assessment app (module)
 ├── script.js                  # Assessment app (standalone)
 ├── config.js                  # App configuration
@@ -360,6 +422,17 @@ performancePolarArea/
 - `POST /api/auth/login` - Login and get JWT token
 - `POST /api/auth/logout` - Logout user
 - `GET /api/auth/me` - Get current user info (protected)
+
+### User Management (Admin Only)
+
+- `GET /api/auth/users` - List all users (admin only)
+- `POST /api/auth/users` - Create new user (admin only)
+  - Body: `{ email, password, firstName, lastName, role? }`
+- `PUT /api/auth/users/:id` - Update user (self or admin)
+  - Body: `{ email?, password?, firstName?, lastName?, role?, currentPassword? }`
+  - Note: Regular users need `currentPassword` to change email or password
+- `DELETE /api/auth/users/:id` - Delete user (admin only)
+  - Cascade: Also deletes user's assessments
 
 ### Assessments
 

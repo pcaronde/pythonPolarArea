@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Assessment = require('../models/Assessment');
 const { generateToken } = require('../config/jwt');
 
 /**
@@ -160,10 +161,197 @@ function logout(req, res) {
   res.json({ message: 'Logged out successfully' });
 }
 
+/**
+ * Get all users (admin only)
+ * GET /api/auth/users
+ */
+async function getAllUsers(req, res) {
+  try {
+    const users = await User.find().select('-password').sort({ createdAt: -1 });
+    res.json({ users });
+  } catch (error) {
+    console.error('Get all users error:', error);
+    res.status(500).json({ message: 'Failed to get users' });
+  }
+}
+
+/**
+ * Create a new user (admin only)
+ * POST /api/auth/users
+ */
+async function createUser(req, res) {
+  try {
+    const { email, password, firstName, lastName, role } = req.body;
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(409).json({ message: 'Email already registered' });
+    }
+
+    // Create new user
+    const user = new User({
+      email,
+      password, // Will be hashed by pre-save hook
+      firstName,
+      lastName,
+      role: role || 'assessor'
+    });
+
+    await user.save();
+
+    // Return user info (without password)
+    res.status(201).json({
+      message: 'User created successfully',
+      user: {
+        id: user._id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+        createdAt: user.createdAt
+      }
+    });
+  } catch (error) {
+    console.error('Create user error:', error);
+    res.status(500).json({ message: 'Failed to create user' });
+  }
+}
+
+/**
+ * Update user (self or admin)
+ * PUT /api/auth/users/:id
+ */
+async function updateUser(req, res) {
+  try {
+    const { id } = req.params;
+    const { email, password, firstName, lastName, role, currentPassword } = req.body;
+    const requestingUser = req.user;
+
+    // Check authorization: user can edit self, admin can edit anyone
+    const isSelf = requestingUser._id.toString() === id;
+    const isAdmin = requestingUser.role === 'admin';
+
+    if (!isSelf && !isAdmin) {
+      return res.status(403).json({ message: 'Insufficient permissions' });
+    }
+
+    // Find the user to update
+    const userToUpdate = await User.findById(id);
+    if (!userToUpdate) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // For self-update, require current password if changing password or email
+    const emailChanging = email && email !== userToUpdate.email;
+    if (isSelf && !isAdmin && (password || emailChanging)) {
+      if (!currentPassword) {
+        return res.status(400).json({ message: 'Current password required for this change' });
+      }
+      const isPasswordValid = await userToUpdate.comparePassword(currentPassword);
+      if (!isPasswordValid) {
+        return res.status(401).json({ message: 'Current password is incorrect' });
+      }
+    }
+
+    // Prevent changing role for non-admins
+    if (role && !isAdmin) {
+      return res.status(403).json({ message: 'Only admins can change user roles' });
+    }
+
+    // Prevent admin from demoting themselves if they're the last admin
+    if (isAdmin && isSelf && role && role !== 'admin') {
+      const adminCount = await User.countDocuments({ role: 'admin' });
+      if (adminCount <= 1) {
+        return res.status(400).json({ message: 'Cannot remove the last admin' });
+      }
+    }
+
+    // Check for email uniqueness if changing email
+    if (email && email !== userToUpdate.email) {
+      const emailExists = await User.findOne({ email, _id: { $ne: id } });
+      if (emailExists) {
+        return res.status(409).json({ message: 'Email already in use' });
+      }
+      userToUpdate.email = email;
+    }
+
+    // Update fields
+    if (firstName) userToUpdate.firstName = firstName;
+    if (lastName) userToUpdate.lastName = lastName;
+    if (password) userToUpdate.password = password; // Will be hashed by pre-save hook
+    if (role && isAdmin) userToUpdate.role = role;
+
+    await userToUpdate.save();
+
+    // Return updated user info
+    res.json({
+      message: 'User updated successfully',
+      user: {
+        id: userToUpdate._id,
+        email: userToUpdate.email,
+        firstName: userToUpdate.firstName,
+        lastName: userToUpdate.lastName,
+        role: userToUpdate.role,
+        createdAt: userToUpdate.createdAt,
+        lastLogin: userToUpdate.lastLogin
+      }
+    });
+  } catch (error) {
+    console.error('Update user error:', error);
+    res.status(500).json({ message: 'Failed to update user' });
+  }
+}
+
+/**
+ * Delete user (admin only)
+ * DELETE /api/auth/users/:id
+ */
+async function deleteUser(req, res) {
+  try {
+    const { id } = req.params;
+    const requestingUser = req.user;
+
+    // Prevent self-deletion
+    if (requestingUser._id.toString() === id) {
+      return res.status(400).json({ message: 'Cannot delete your own account' });
+    }
+
+    // Find the user to delete
+    const userToDelete = await User.findById(id);
+    if (!userToDelete) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Prevent deleting the last admin
+    if (userToDelete.role === 'admin') {
+      const adminCount = await User.countDocuments({ role: 'admin' });
+      if (adminCount <= 1) {
+        return res.status(400).json({ message: 'Cannot delete the last admin' });
+      }
+    }
+
+    // Delete user's assessments (cascade delete)
+    await Assessment.deleteMany({ userId: id });
+
+    // Delete the user
+    await User.findByIdAndDelete(id);
+
+    res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Delete user error:', error);
+    res.status(500).json({ message: 'Failed to delete user' });
+  }
+}
+
 module.exports = {
   register,
   login,
   getCurrentUser,
   getAuthConfig,
-  logout
+  logout,
+  getAllUsers,
+  createUser,
+  updateUser,
+  deleteUser
 };
