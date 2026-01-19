@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="User Configuration - Performance Assessment Application">
+    <title>User Settings - Performance Assessment</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="frontend/api/apiClient.js"></script>
+    <script src="frontend/api/authManager.js"></script>
+</head>
+<body>
+    <!-- User Info Display -->
+    <div class="header-bar">
+        <div class="header-left">
+            <a href="/index-3t.html" class="nav-link">Assessment</a>
+            <a href="/history.html" class="nav-link">History</a>
+            <span class="nav-link active">Settings</span>
+        </div>
+        <div class="header-right">
+            <span id="userDisplay"></span>
+            <button onclick="handleLogout()" class="btn-logout">Logout</button>
+        </div>
+    </div>
+
+    <div class="page-container">
+        <img height="53" src="3T_logo-250x107.png" width="125" alt="3T SoftwareLabs GmbH">
+        <h1>User Settings</h1>
+
+        <!-- Message Container -->
+        <div id="messageContainer"></div>
+
+        <!-- My Profile Section -->
+        <section class="config-section">
+            <h2>My Profile</h2>
+            <form id="profileForm" class="config-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="profileFirstName">First Name</label>
+                        <input type="text" id="profileFirstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileLastName">Last Name</label>
+                        <input type="text" id="profileLastName" name="lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="profileEmail">Email</label>
+                    <input type="email" id="profileEmail" name="email" required>
+                </div>
+
+                <hr class="form-divider">
+
+                <h3>Change Password</h3>
+                <p class="form-hint">Leave blank to keep current password</p>
+
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" name="currentPassword" autocomplete="current-password">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" name="newPassword" minlength="6" autocomplete="new-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" minlength="6" autocomplete="new-password">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" id="saveProfileBtn">Save Changes</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- User Management Section (Admin Only) -->
+        <section id="adminSection" class="config-section hidden">
+            <h2>User Management</h2>
+            <div class="section-actions">
+                <button type="button" onclick="showAddUserModal()" class="btn-primary">Add New User</button>
+            </div>
+
+            <div class="table-container">
+                <table id="usersTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <tr>
+                            <td colspan="5" class="loading-cell">Loading users...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Add/Edit User Modal -->
+    <div id="userModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New User</h3>
+                <button type="button" onclick="closeUserModal()" class="modal-close">&times;</button>
+            </div>
+            <form id="userForm">
+                <input type="hidden" id="editUserId" name="userId">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="userFirstName">First Name *</label>
+                        <input type="text" id="userFirstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userLastName">Last Name *</label>
+                        <input type="text" id="userLastName" name="lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="userEmail">Email *</label>
+                    <input type="email" id="userEmail" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="userPassword">Password <span id="passwordHint">*</span></label>
+                    <input type="password" id="userPassword" name="password" minlength="6">
+                    <span class="form-hint" id="passwordEditHint" style="display: none;">Leave blank to keep current password</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="userRole">Role *</label>
+                    <select id="userRole" name="role" required>
+                        <option value="assessor">Assessor</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" onclick="closeUserModal()" class="btn-secondary">Cancel</button>
+                    <button type="submit" class="btn-primary" id="saveUserBtn">Save User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div id="deleteModal" class="modal hidden">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h3>Confirm Delete</h3>
+                <button type="button" onclick="closeDeleteModal()" class="modal-close">&times;</button>
+            </div>
+            <p id="deleteMessage">Are you sure you want to delete this user?</p>
+            <div class="form-actions">
+                <button type="button" onclick="closeDeleteModal()" class="btn-secondary">Cancel</button>
+                <button type="button" onclick="confirmDeleteUser()" class="btn-danger" id="confirmDeleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="user-config.js"></script>
+</body>
+</html>

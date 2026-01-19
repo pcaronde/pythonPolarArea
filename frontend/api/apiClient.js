@@ -127,6 +127,65 @@ class APIClient {
     return this.request('/auth/me');
   }
 
+  // ==================== User Management Methods ====================
+
+  /**
+   * Get all users (admin only)
+   * @returns {Promise<Object>} - { users }
+   */
+  async getAllUsers() {
+    return this.request('/auth/users');
+  }
+
+  /**
+   * Create a new user (admin only)
+   * @param {Object} userData - { email, password, firstName, lastName, role? }
+   * @returns {Promise<Object>} - { user }
+   */
+  async createUser(userData) {
+    return this.request('/auth/users', {
+      method: 'POST',
+      body: JSON.stringify(userData)
+    });
+  }
+
+  /**
+   * Update a user
+   * @param {string} id - User ID
+   * @param {Object} userData - { email?, password?, firstName?, lastName?, role?, currentPassword? }
+   * @returns {Promise<Object>} - { user }
+   */
+  async updateUser(id, userData) {
+    return this.request(`/auth/users/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(userData)
+    });
+  }
+
+  /**
+   * Delete a user (admin only)
+   * @param {string} id - User ID
+   * @returns {Promise<Object>} - { message }
+   */
+  async deleteUser(id) {
+    return this.request(`/auth/users/${id}`, {
+      method: 'DELETE'
+    });
+  }
+
+  /**
+   * Update own profile
+   * @param {Object} userData - { email?, password?, firstName?, lastName?, currentPassword? }
+   * @returns {Promise<Object>} - { user }
+   */
+  async updateProfile(userData) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || !user.id) {
+      throw new Error('User not logged in');
+    }
+    return this.updateUser(user.id, userData);
+  }
+
   // ==================== Assessment Methods ====================
 
   /**

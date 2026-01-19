@@ -19,15 +19,22 @@
     <a href="#inputForm" class="skip-link">Skip to assessment form</a>
 
     <!-- User Info Display -->
-    <div style="text-align: right; padding: 10px; background: #f0f0f0;">
-        <span id="userDisplay" style="margin-right: 15px; font-weight: 600;"></span>
-        <button onclick="handleLogout()" style="padding: 5px 15px; cursor: pointer; background: #f44336; color: white; border: none; border-radius: 4px;">Logout</button>
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="nav-link active">Assessment</span>
+            <a href="/history.html" class="nav-link">History</a>
+            <a href="/user-config.html" class="nav-link">Settings</a>
+        </div>
+        <div class="header-right">
+            <span id="userDisplay"></span>
+            <button onclick="handleLogout()" class="btn-logout">Logout</button>
+        </div>
     </div>
-    <br>
+    <header>
         <!--img height="150" src="logo.png" width="150" alt="Peter Caron Consulting OÜ Logo"-->
         <img height="53" src="3T_logo-250x107.png" width="125" alt="3T SoftwareLabs GmbH">
         <h1>Mini-Performance Assessment</h1>
-
+    </header>
     <main>
         <section aria-labelledby="intro-heading">
             <h2 id="intro-heading" class="sr-only">Introduction</h2>
@@ -300,7 +307,7 @@
         // Display logged-in user
         const user = authManager.getUser();
         if (user) {
-            document.getElementById('userDisplay').textContent = `Logged in as: ${user.firstName} ${user.lastName}`;
+            document.getElementById('userDisplay').textContent = `${user.firstName} ${user.lastName}`;
         }
 
         // Logout function

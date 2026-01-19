@@ -6,13 +6,19 @@ const {
   login,
   getCurrentUser,
   getAuthConfig,
-  logout
+  logout,
+  getAllUsers,
+  createUser,
+  updateUser,
+  deleteUser
 } = require('../controllers/authController');
 const {
   validateRegistration,
-  validateLogin
+  validateLogin,
+  validateUserUpdate,
+  validateUserCreate
 } = require('../middleware/validation');
-const { authenticateToken } = require('../middleware/authMiddleware');
+const { authenticateToken, requireRole } = require('../middleware/authMiddleware');
 
 // Rate limiter for auth endpoints (prevent brute force)
 const authLimiter = rateLimit({
@@ -59,5 +65,37 @@ router.get('/me', authenticateToken, getCurrentUser);
  * Requires: Authorization header with Bearer token
  */
 router.post('/logout', authenticateToken, logout);
+
+// ==================== User Management Routes ====================
+
+/**
+ * GET /api/auth/users
+ * Get all users (admin only)
+ * Requires: Authorization header with Bearer token, admin role
+ */
+router.get('/users', authenticateToken, requireRole('admin'), getAllUsers);
+
+/**
+ * POST /api/auth/users
+ * Create a new user (admin only)
+ * Body: { email, password, firstName, lastName, role? }
+ * Requires: Authorization header with Bearer token, admin role
+ */
+router.post('/users', authenticateToken, requireRole('admin'), validateUserCreate, createUser);
+
+/**
+ * PUT /api/auth/users/:id
+ * Update a user (self or admin)
+ * Body: { email?, password?, firstName?, lastName?, role?, currentPassword? }
+ * Requires: Authorization header with Bearer token
+ */
+router.put('/users/:id', authenticateToken, validateUserUpdate, updateUser);
+
+/**
+ * DELETE /api/auth/users/:id
+ * Delete a user (admin only)
+ * Requires: Authorization header with Bearer token, admin role
+ */
+router.delete('/users/:id', authenticateToken, requireRole('admin'), deleteUser);
 
 module.exports = router;

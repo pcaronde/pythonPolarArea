@@ -100,9 +100,79 @@ const validateAssessment = [
   handleValidationErrors
 ];
 
+/**
+ * Validation rules for user update (self or admin)
+ */
+const validateUserUpdate = [
+  body('email')
+    .optional()
+    .trim()
+    .isEmail().withMessage('Please enter a valid email')
+    .normalizeEmail(),
+
+  body('password')
+    .optional()
+    .isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
+
+  body('firstName')
+    .optional()
+    .trim()
+    .isLength({ max: 50 }).withMessage('First name must be less than 50 characters')
+    .escape(),
+
+  body('lastName')
+    .optional()
+    .trim()
+    .isLength({ max: 50 }).withMessage('Last name must be less than 50 characters')
+    .escape(),
+
+  body('role')
+    .optional()
+    .isIn(['assessor', 'admin']).withMessage('Role must be assessor or admin'),
+
+  body('currentPassword')
+    .optional()
+    .notEmpty().withMessage('Current password cannot be empty'),
+
+  handleValidationErrors
+];
+
+/**
+ * Validation rules for user creation (admin only)
+ */
+const validateUserCreate = [
+  body('email')
+    .trim()
+    .isEmail().withMessage('Please enter a valid email')
+    .normalizeEmail(),
+
+  body('password')
+    .isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
+
+  body('firstName')
+    .trim()
+    .notEmpty().withMessage('First name is required')
+    .isLength({ max: 50 }).withMessage('First name must be less than 50 characters')
+    .escape(),
+
+  body('lastName')
+    .trim()
+    .notEmpty().withMessage('Last name is required')
+    .isLength({ max: 50 }).withMessage('Last name must be less than 50 characters')
+    .escape(),
+
+  body('role')
+    .optional()
+    .isIn(['assessor', 'admin']).withMessage('Role must be assessor or admin'),
+
+  handleValidationErrors
+];
+
 module.exports = {
   validateRegistration,
   validateLogin,
   validateAssessment,
+  validateUserUpdate,
+  validateUserCreate,
   handleValidationErrors
 };

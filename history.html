@@ -229,9 +229,16 @@
 </head>
 <body>
     <!-- User Info Display -->
-    <div style="text-align: right; padding: 10px; background: #f0f0f0;">
-        <span id="userDisplay" style="margin-right: 15px; font-weight: 600;"></span>
-        <button onclick="handleLogout()" style="padding: 5px 15px; cursor: pointer; background: #f44336; color: white; border: none; border-radius: 4px;">Logout</button>
+    <div class="header-bar">
+        <div class="header-left">
+            <a href="/index-3t.html" class="nav-link">Assessment</a>
+            <span class="nav-link active">History</span>
+            <a href="/user-config.html" class="nav-link">Settings</a>
+        </div>
+        <div class="header-right">
+            <span id="userDisplay"></span>
+            <button onclick="handleLogout()" class="btn-logout">Logout</button>
+        </div>
     </div>
 
     <div class="history-container">
@@ -292,7 +299,7 @@
         // Display logged-in user
         const user = authManager.getUser();
         if (user) {
-            document.getElementById('userDisplay').textContent = `Logged in as: ${user.firstName} ${user.lastName}`;
+            document.getElementById('userDisplay').textContent = `${user.firstName} ${user.lastName}`;
         }
 
         // Logout function
