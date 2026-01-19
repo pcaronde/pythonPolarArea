@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+
+# Git
+.git/
+.gitignore
+
+# Environment files (use docker-compose environment instead)
+.env
+.env.*
+
+# Documentation
+*.md
+!README.md
+
+# Development files
+.vscode/
+.idea/
+*.log
+npm-debug.log*
+
+# Test files
+__tests__/
+*.test.js
+coverage/
+
+# Deprecated code
+deprecated*/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
+*.temp
+Claude.md
