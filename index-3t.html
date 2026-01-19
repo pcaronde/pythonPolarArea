@@ -352,6 +352,82 @@
         }
 
         let currentEmployeeName = '';
+        let currentAssessmentId = null;
+
+        // Debounce function for auto-save
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func.apply(this, args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Collect form data for saving
+        function collectFormData() {
+            const metrics = {};
+            const metricIds = [
+                'sharedVision', 'strategy', 'businessAlignment', 'customerFocus',
+                'crossFunctionalTeams', 'clarityInPriorities', 'acceptanceCriteria', 'enablingFocus', 'engagement',
+                'feedback', 'enablingAutonomy', 'changeAndAmbiguity', 'desiredCulture', 'workAutonomously',
+                'stakeholders', 'teamAttrition', 'teams', 'developingPeople', 'subordinatesForSuccess'
+            ];
+            metricIds.forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    metrics[id] = parseInt(input.value) || 0;
+                }
+            });
+            return metrics;
+        }
+
+        // Save assessment to MongoDB
+        async function saveToMongoDB() {
+            try {
+                // Check if user is authenticated
+                if (!window.authManager || !window.authManager.isAuthenticated()) {
+                    console.warn('User not authenticated, cannot save to database');
+                    showErrorMessage('Please login to save assessments');
+                    return;
+                }
+
+                // Prepare assessment data
+                const data = {
+                    employeeName: currentEmployeeName || 'Unknown',
+                    assessmentDate: new Date().toISOString(),
+                    metrics: collectFormData()
+                };
+
+                // Check if updating existing or creating new
+                if (currentAssessmentId) {
+                    // Update existing assessment
+                    const response = await api.updateAssessment(currentAssessmentId, data);
+                    console.log('Assessment updated:', response);
+                    showSuccessMessage('Assessment updated');
+                } else {
+                    // Create new assessment
+                    const response = await api.createAssessment(data);
+                    currentAssessmentId = response.assessment._id;
+                    console.log('Assessment created:', response);
+                    showSuccessMessage('Assessment saved to database');
+                }
+
+            } catch (error) {
+                console.error('Failed to save to MongoDB:', error);
+                showErrorMessage('Could not save: ' + error.message);
+            }
+        }
+
+        // Debounced auto-save function (5 seconds after last change)
+        const debouncedSave = debounce(() => {
+            if (currentEmployeeName) {
+                saveToMongoDB();
+            }
+        }, 5000);
 
         // Add event listener for employee name input
         document.getElementById('employeeName').addEventListener('input', function (e) {
@@ -361,6 +437,8 @@
                 performanceChart.options.plugins.title.text = currentEmployeeName ? `${currentEmployeeName} - Results` : 'Results';
                 performanceChart.update();
             }
+            // Trigger auto-save
+            debouncedSave();
         });
         async function saveOnly() {
             const formData = new FormData(document.getElementById('inputForm'));
@@ -399,6 +477,9 @@
                 nameInput.value = '';
                 currentEmployeeName = '';
             }
+
+            // Reset assessment ID (start fresh)
+            currentAssessmentId = null;
 
             // Update chart title
             if (performanceChart) {
@@ -555,18 +636,26 @@
             }
         }
 
-        // Add event listeners to all inputs to update chart on change
+        // Add event listeners to all inputs to update chart on change and auto-save
         document.querySelectorAll('input[type="number"]').forEach(input => {
             input.addEventListener('change', () => {
                 updateChart();
+                debouncedSave(); // Auto-save after change
             });
+        });
+
+        // Keyboard shortcut: Ctrl/Cmd + S to save
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                saveToMongoDB();
+            }
         });
     </script>
     <div class="btn-group">
-        <!--<button type="button" onclick="updateChartAndSave()">Update Chart</button>-->
+        <button type="button" onclick="saveToMongoDB()" style="background-color: #4CAF50;">Save to DB</button>
         <button type="button" onclick="saveOnly()">Save to File</button>
         <button type="button" onclick="loadFromCSV()">Import from File</button>
-        <button type="button" onclick="clearAll()">Clear All</button>
     </div>
 </body>
 </html>

@@ -792,3 +792,9 @@ window.newAssessment = function () {
         assessmentApp.newAssessment();
     }
 };
+
+window.saveToMongoDB = function () {
+    if (assessmentApp) {
+        assessmentApp.saveToMongoDB();
+    }
+};
