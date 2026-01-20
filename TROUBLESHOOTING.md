@@ -480,3 +480,9 @@ sudo netstat -tlnp | grep 27017
 5. **.env file issues** → Check permissions, values
 
 Start with checking Nginx configuration - this is the most common cause of "route not found" when the frontend loads but API calls fail.
+
+# Promote existing user to an admin user
+- Make sure to have the perfassess password ready:
+```                                                                                                                                                                                                              
+  mongosh mongodb://perfassess:<password>@localhost:27017/hr_performance --eval 'db.users.updateOne({email: "user@example.com"}, {$set: {role: "admin"}})'
+```
