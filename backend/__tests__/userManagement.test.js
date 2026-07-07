@@ -426,29 +426,42 @@ describe('User Management API', () => {
       expect(res.body.message).toBe('Cannot delete your own account');
     });
 
-    it('should prevent deleting last admin', async () => {
+    it('should allow deleting an admin when other admins remain', async () => {
       const { token } = await createAdminUser();
       const { user: otherAdmin } = await createAdminUser();
 
-      // Delete first admin to leave only one
-      // First we need another non-admin to delete
-      const { user: regularUser } = await createTestUser();
-
-      // Make the other admin the only admin by having them delete regular user
       await request(app)
-        .delete(`/api/auth/users/${regularUser._id}`)
-        .set('Authorization', `Bearer ${token}`)
-        .expect(200);
-
-      // Now try to delete the other admin (leaving only current admin)
-      const res = await request(app)
         .delete(`/api/auth/users/${otherAdmin._id}`)
         .set('Authorization', `Bearer ${token}`)
         .expect(200);
 
-      // Verify there's still one admin
       const admins = await User.find({ role: 'admin' });
-      expect(admins.length).toBeGreaterThanOrEqual(1);
+      expect(admins).toHaveLength(1);
+    });
+
+    // The "Cannot delete the last admin" guard in the controller can only fire when
+    // requestingUser !== userToDelete and adminCount <= 1 at the same time. Via the API
+    // that's unreachable: self-deletion is blocked earlier, and if the requesting admin
+    // is themselves an admin, deleting a *different* admin means adminCount was >= 2
+    // going in. So this is exercised as a controller-level unit test instead of a route test.
+    it('should block deletion at the controller level when only one admin remains', async () => {
+      const { deleteUser } = require('../controllers/authController');
+      const { user: admin } = await createAdminUser();
+      const { user: otherAdmin } = await createAdminUser();
+
+      const countSpy = jest.spyOn(User, 'countDocuments').mockResolvedValue(1);
+
+      const req = { params: { id: otherAdmin._id.toString() }, user: admin };
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
+      await deleteUser(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ message: 'Cannot delete the last admin' });
+
+      countSpy.mockRestore();
+      const stillExists = await User.findById(otherAdmin._id);
+      expect(stillExists).not.toBeNull();
     });
 
     it('should return 404 for non-existent user', async () => {
