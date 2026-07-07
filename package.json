@@ -1,6 +1,6 @@
 {
   "name": "performance-assessment-backend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Performance Assessment Application with MongoDB persistence",
   "main": "backend/server.js",
   "scripts": {
