@@ -21,13 +21,16 @@ const {
 const { authenticateToken, requireRole } = require('../middleware/authMiddleware');
 
 // Rate limiter for auth endpoints (prevent brute force)
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // 5 requests per window
-  message: 'Too many authentication attempts, please try again later',
-  standardHeaders: true,
-  legacyHeaders: false
-});
+// Skip rate limiting in test environment
+const authLimiter = process.env.NODE_ENV === 'test'
+  ? (req, res, next) => next()
+  : rateLimit({
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      max: 5, // 5 requests per window
+      message: 'Too many authentication attempts, please try again later',
+      standardHeaders: true,
+      legacyHeaders: false
+    });
 
 /**
  * GET /api/auth/config
